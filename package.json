@@ -1,0 +1,44 @@
+{
+  "name": "1000blankwhitecards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server/index.js -w",
+    "start": "webpack --config webpack.config.js -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blueocean-pikachus/1000BlankWhiteCards.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blueocean-pikachus/1000BlankWhiteCards/issues"
+  },
+  "homepage": "https://github.com/blueocean-pikachus/1000BlankWhiteCards#readme",
+  "devDependencies": {
+    "@babel/core": "^7.17.8",
+    "@babel/plugin-transform-runtime": "^7.17.0",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.7.1",
+    "file-loader": "^6.2.0",
+    "nodemon": "^2.0.15",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.70.0",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.8.2",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.5.1",
+    "axios": "^0.26.1",
+    "express": "^4.17.3",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
+}
