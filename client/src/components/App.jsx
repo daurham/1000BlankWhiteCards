@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route , Link} from 'react-router-dom';
 import Home from './Home';
 import Library from './Library';
-import InGame from './InGame';
+import InGame from './inGame/InGame.jsx';
 import Lobby from './Lobby';
 
 export default function App() {
