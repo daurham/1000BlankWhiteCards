@@ -1,6 +1,7 @@
-import React, { useContext, useState, useMemo} from 'react';
+import React, { useContext, useState, useMemo, useEffect } from 'react';
+import App from './components/App.jsx';
+import axios from 'axios';
 
-// import App from './components/App.jsx';
 
 const DataContext = React.createContext();
 
@@ -8,18 +9,18 @@ export function useData() {
   return useContext(DataContext);
 }
 
-export default function Context() {
+export default function Context({}) {
   const [positions, getPositions] = useState();
 
-  function updatePostitions() {
-    getPositions((id) => id + 1);
-  }
+  // function updatePostitions() {
+  //   getPositions(() => );
+  // }
 
   useEffect(() => (
-    axios.get('/position')
+    axios.get('/positions')
       .then((result) => {
         const { data } = result;
-        getPositions(id);
+        getPositions(data);
       })
   ), []);
 
