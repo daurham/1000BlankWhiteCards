@@ -7,8 +7,8 @@ export default function InGame() {
   return (
     <div>
       <Rule />
-      <Board />
       <TurnTracker />
+      <Board />
     </div>
   );
 }
