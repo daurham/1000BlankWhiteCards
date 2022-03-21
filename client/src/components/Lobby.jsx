@@ -9,9 +9,9 @@ export default function Lobby() {
   return (
   <div>
     <h1>Lobby</h1>
-    <div className="App drawing-area">
+    {/* <div className="App drawing-area">
       <DrawingArea />
-    </div>
+    </div> */}
     <Link to="/">Exit</Link>
   </div>
   );

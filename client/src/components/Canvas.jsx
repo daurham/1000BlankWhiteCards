@@ -1,6 +1,15 @@
-// import React from 'react';
-// import { fabric } from 'fabric';
+// // import React from 'react';
+// // import { fabric } from 'fabric';
+// import React from "react";
+// import ReactDOM from "react-dom";
+// import CanvasDraw from "react-canvas-draw";
 
+// <CanvasDraw
+// style={{
+//   boxShadow:
+//     "0 13px 27px -5px rgba(50, 50, 93, 0.25),    0 8px 16px -8px rgba(0, 0, 0, 0.3)"
+// }}
+// />
 
 // function makeCanvas() {
 //   var $ = function (id) { return document.getElementById(id) };
