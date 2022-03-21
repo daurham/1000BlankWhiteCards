@@ -28,6 +28,7 @@
     "css-loader": "^6.7.1",
     "file-loader": "^6.2.0",
     "nodemon": "^2.0.15",
+    "source-map-loader": "^3.0.1",
     "style-loader": "^3.3.1",
     "webpack": "^5.70.0",
     "webpack-cli": "^4.9.2"
@@ -38,8 +39,12 @@
     "@mui/material": "^5.5.1",
     "axios": "^0.26.1",
     "express": "^4.17.3",
+    "fabric": "^5.2.1",
+    "konva": "^8.3.4",
     "react": "^17.0.2",
+    "react-canvas-draw": "^1.2.1",
     "react-dom": "^17.0.2",
+    "react-konva": "^17.0.2-5",
     "react-router-dom": "^6.2.2"
   }
 }
