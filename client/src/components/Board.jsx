@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from "styled-components";
+import TurnTracker from './TurnTracker.jsx';
 
 const Container = styled.div`
   display: flex;
@@ -59,6 +60,7 @@ export default function GameBoard() {
           </Innerboard>
         </Board>
       </Background>
+      <TurnTracker />
     </Container>
   );
 };
