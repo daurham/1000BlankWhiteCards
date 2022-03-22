@@ -21,8 +21,6 @@ export default function Context() {
   //     })
   // ), []);
 
-
-
   const dummyCardData = [
     { image: 'https://res.cloudinary.com/dgdqzfkbf/image/upload/v1645926277/yfgppek8xixxoryrkjiw.jpg', rules: 'gimme 5 ponts', date: () => new Date(), points: 100, tags: ['pika',], creator: 'Karke', id: 1 },
     { image: 'https://res.cloudinary.com/dgdqzfkbf/image/upload/v1645926277/yfgppek8xixxoryrkjiw.jpg', rules: 'gimme 10009', date: () => new Date(), points: 100, tags: ['pika-pee'], creator: 'Kake', id: 2 },
