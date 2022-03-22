@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 export default function MediaCard({card}) {
-  return (
+  return !card ? null : (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
@@ -28,14 +28,23 @@ export default function MediaCard({card}) {
         <Typography variant="body2" color="text.secondary">
           {card.tags}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        {/* <Typography variant="body2" color="text.secondary">
           {card.date}
-        </Typography>
+        </Typography> */}
       </CardContent>
-      {/* <CardActions>
-        <Button size="small">Share</Button>
-        <Button size="small">Learn More</Button>
-      </CardActions> */}
     </Card>
   );
 }
+
+
+// ----------------------------------old code might be trash now ---------------------------
+/*
+  <CardActions>
+    <Button size="small">Share</Button>
+    <Button size="small">Learn More</Button>
+  </CardActions>
+
+  this issue here is being caused by the date being passed into the card
+  because it is a function
+
+*/
