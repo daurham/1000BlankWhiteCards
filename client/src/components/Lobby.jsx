@@ -70,7 +70,7 @@ export default function BasicModal() {
       >
         <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add A card!
+            Add a card!
           </Typography>
         <Stack direction="row" spacing={2}>
           <CanvasDraw brushColor={selectedColor} />

@@ -28,9 +28,9 @@ export default function MediaCard({card}) {
         <Typography variant="body2" color="text.secondary">
           {card.tags}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {card.date}
-        </Typography>
+        {/* <Typography variant="body2" color="text.secondary">
+          {/* {card.date} */}
+        {/* </Typography> */}
       </CardContent>
       {/* <CardActions>
         <Button size="small">Share</Button>
