@@ -59,6 +59,7 @@ export default function GameBoard() {
           </Innerboard>
         </Board>
       </Background>
+
     </Container>
   );
 };

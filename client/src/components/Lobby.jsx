@@ -1,51 +1,8 @@
-// import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
-// import Home from './Home.jsx'
-// import DrawingArea from './DrawingArea';
-// import CanvasDraw from "react-canvas-draw";
-// import Button from '@mui/material/Button';
-// import Modal from '@mui/material/Modal';
-
-
-// export default function Lobby() {
-//   const [open, setOpen] = useState(false);
-//   const handleOpen = () => setOpen(true);
-//   const handleClose = () => setOpen(false);
-//   const [showCanvas, setShowCanvas] = useState(false)
-
-//   // const handleClick = function () {
-//   //   setShowCanvas(!showCanvas);
-//   // }
-
-//   return (
-//     <div>
-//       <h1>Lobby</h1>
-//       <div>
-//         <Button onClick={handleOpen} varaint="contained" color="primary">Add a Card</Button>
-//         {/* <DrawingArea /> */}
-
-
-//         {/* {showCanvas ? */}
-//           <Modal
-//             open={open}
-//             onClose={handleClose}
-//             // aria-labelledby="modal-modal-title"
-//             // aria-describedby="modal-modal-description"
-//           >
-//             <CanvasDraw />
-//           </Modal>
-//           {/* : null} */}
-//       </div>
-//       <Link to="/Game">Go to Game!</Link>
-//       {/* <br /> */}
-//       <Link to="/">Exit</Link>
-//     </div>
-//   );
-// }
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Modal} from '@mui/material';
 import CanvasDraw from "react-canvas-draw";
+import TransferList from './TransferList'
 
 const style = {
   position: 'absolute',
@@ -110,6 +67,7 @@ export default function BasicModal() {
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
           </Typography>
+          <TransferList />
         </Box>
       </Modal>
       </div>
