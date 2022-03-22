@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Modal, Stack, Select, FormControl, MenuItem, InputLabel, TextField} from '@mui/material';
 import CanvasDraw from "react-canvas-draw";
@@ -24,6 +24,7 @@ export default function BasicModal() {
   const [openCanvas, setCanvasOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState('red');
   const [openDeck, setDeckOpen] = useState(false);
+  const canvasDraw = useRef();
 
   // functions
   const handleCanvasOpen = () => setCanvasOpen(true);
@@ -42,8 +43,17 @@ export default function BasicModal() {
   const handleTags = (e) => {
     setTags(e.target.value);
   }
+
+  const handleClear = (e) =>{
+    e.preventDefault
+    const url = canvasDraw.current.getDataURL()
+    console.log('url: ', url)
+    canvasDraw.current.clear();
+  }
   const handleSubmit = (e) => {
     e.preventDefault()
+    // make the post to cloudinary
+
     let data = {
       points: points,
       description: description,
@@ -73,7 +83,10 @@ export default function BasicModal() {
             Add A card!
           </Typography>
         <Stack direction="row" spacing={2}>
-          <CanvasDraw brushColor={selectedColor} />
+          <CanvasDraw
+          brushColor={selectedColor}
+          ref={canvasDraw}
+          />
           <Stack direction="column" spacing={2}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Settings:
@@ -106,6 +119,7 @@ export default function BasicModal() {
             />
             <TextField id="outlined-basic" label="Tags" variant="outlined" onChange={handleTags} />
             <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+            <Button variant="outlined" onClick={handleClear}>Clear</Button>
           </Stack>
         </Stack>
         </Box>
