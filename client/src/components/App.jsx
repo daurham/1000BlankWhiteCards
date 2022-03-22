@@ -4,8 +4,11 @@ import Home from './Home';
 import Library from './Library';
 import InGame from './inGame/InGame.jsx';
 import Lobby from './Lobby';
+import { useData } from '../UseContext';
 
 export default function App() {
+  // const [dummyCardData] = useData();
+  // console.log(dummyCardData);
   return (
     <Router>
       <Routes>
@@ -15,11 +18,5 @@ export default function App() {
         <Route path="/Game" element={<InGame />} />
       </Routes>
     </Router>
-    // <div>
-    //   <Home />
-    //   <Library />
-    //   <Lobby />
-    //   <InGame />
-    // </div>
   );
 };
