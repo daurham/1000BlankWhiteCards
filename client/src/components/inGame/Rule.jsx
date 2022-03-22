@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 const popover = (
   <Popover id="popover-basic">
     <Popover.Body>
-      Write rules here
+      When no more cards, count up scores!
     </Popover.Body>
   </Popover>
 );

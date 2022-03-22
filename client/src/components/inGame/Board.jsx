@@ -9,11 +9,13 @@ const Container = styled.div`
 
 const Background = styled.section`
   display: flex;
-  background: gray;
+  background-color: gray;
   height: 50rem;
   width: 50rem;
   justify-content: center;
   align-items: center;
+  position: relative;
+  border: 0.1rem solid black;
 `;
 
 const Board = styled.section`
@@ -40,13 +42,25 @@ const Board = styled.section`
 `;
 
 const Innerboard = styled.section`
-  background: white;
+  background-color: white;
   height: 20rem;
   width: 20rem;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   border: 0.1rem solid black;
+`;
+
+const Deck = styled.section`
+  background-color: gray;
+  height: 17rem;
+  width: 8rem;
+`;
+
+const Global = styled.section`
+  background-color: gray;
+  height: 17rem;
+  width: 8rem;
 `;
 
 export default function GameBoard() {
@@ -55,7 +69,8 @@ export default function GameBoard() {
       <Background>
         <Board>
           <Innerboard>
-            Center
+            <Deck>Deck</Deck>
+            <Global>Global</Global>
           </Innerboard>
         </Board>
       </Background>
