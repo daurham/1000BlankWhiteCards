@@ -1,10 +1,11 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Modal, Stack, Select, FormControl, MenuItem, InputLabel, TextField} from '@mui/material';
 import CanvasDraw from "react-canvas-draw";
 import TransferList from './TransferList';
 import Cards from './Cards.jsx';
 import axios from 'axios';
+import { useData } from '../UseContext';
 
 const style = {
   position: 'absolute',
@@ -18,22 +19,35 @@ const style = {
   p: 4,
 };
 
+// const socket = io('http://localhost:8080');
+
 export default function BasicModal() {
   // States
-  const [points, setPoints] = useState();
-  const [description, setDescription] = useState();
-  const [tags, setTags] = useState();
+  const [user, setUser] = useState('');
+  const [points, setPoints] = useState(0);
+  const [description, setDescription] = useState('');
+  const [tags, setTags] = useState('');
   const [openCanvas, setCanvasOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState('red');
   const [openDeck, setDeckOpen] = useState(false);
   const [photo, setPhoto] = useState();
+  const [allcards, setAllCards] = useState([]);
   const canvasDraw = useRef();
+
+  const { socket, cards, getCards } = useData();
+
+  // socket.on('card-list', (cards) => {
+    // console.log(cards);
+  // }
 
   // functions
   const handleCanvasOpen = () => setCanvasOpen(true);
   const handleCanvasClose = () => setCanvasOpen(false);
   const handleDeckOpen = () => setDeckOpen(true);
   const handleDeckClose = () => setDeckOpen(false);
+  const handleUser = (e) =>{
+    setUser(e.target.value);
+  }
   const handleColorChange =(e)=>{
     setSelectedColor(e.target.value);
   }
@@ -56,7 +70,7 @@ export default function BasicModal() {
     e.preventDefault()
     // make the post to cloudinary
     const url = canvasDraw.current.getDataURL()
-    console.log('url: ', url);
+    // console.log('url: ', url);
     const data = new FormData();
     data.append('file', url);
     data.append('upload_preset', 'catwalk');
@@ -69,24 +83,55 @@ export default function BasicModal() {
     })
       .then((res) => {
         const { data: imageData } = res;
+        setPhoto(() => imageData.url);
         console.log(imageData.url);
-        axios.post('', {
-          data
-        })
+        const date = new Date();
+        const newDate = date.toISOString();
+        socket.emit('add-cards', [
+          {
+            createdBy: user,
+            dateCreated: newDate,
+            cardRules: description,
+            points: points,
+            image: imageData.url,
+            tags: tags
+          }
+        ])
+        canvasDraw.current.clear();
+        setTags(() => '');
+        setDescription(() => '');
+        setPoints(() => '');
+        setTags(() => '');
       })
+      // .then(() => {
+      //   canvasDraw.current.clear();
+      //   setTags(() => '');
+      //   setDescription(() => '');
+      //   setPoints(() => '');
+      //   setTags(() => '');
+      // })
       .catch((err) => console.log(err));
 
-  }
+    }
+
+
+      useEffect(() => {
+        // getAllCards(() => cards)
+        // console.log(cards)
+        // socket.on('card-list', (cards) => {
+        // })
+
+      }, [photo]);
 
   return (
     <div>
       <h1>Lobby</h1>
       <div>
         <h4>Players</h4>
-        <div>Player 1</div>
-        <div>Player 2</div>
-        <div>Player 3</div>
-        <div>Player 4</div>
+        <div>Player 1: Alvina</div>
+        <div>Player 2: Jini</div>
+        <div>Player 3: Waylon</div>
+        <div>Player 4: Trevor</div>
       </div>
       <Button onClick={handleCanvasOpen}>Add A Card!</Button>
       <Modal
@@ -97,7 +142,7 @@ export default function BasicModal() {
       >
         <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add a card!
+            {allcards.length < 40 ? 'Add 10 cards before moving on!' : 'Add 5 cards before moving on!'}
           </Typography>
         <Stack direction="row" spacing={2}>
           <CanvasDraw
@@ -126,15 +171,17 @@ export default function BasicModal() {
                 <MenuItem value={'pink'}>Pink</MenuItem>
               </Select>
             </FormControl>
-            <TextField id="outlined-basic" label="Points" variant="outlined" onChange={handlePoints}/>
+            <TextField id="outlined-basic" label="User" variant="outlined" value={user} onChange={handleUser}/>
+            <TextField id="outlined-basic" label="Points" variant="outlined" value={points} type="number" onChange={handlePoints}/>
             <TextField
               id="outlined-multiline-static"
               label="Description"
+              value={description}
               multiline
               rows={3}
               onChange={handleDescription}
             />
-            <TextField id="outlined-basic" label="Tags" variant="outlined" onChange={handleTags} />
+            <TextField id="outlined-basic" label="Tags" variant="outlined" value={tags} onChange={handleTags} />
             <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
             <Button variant="outlined" onClick={handleClear}>Clear</Button>
           </Stack>
@@ -148,17 +195,29 @@ export default function BasicModal() {
       <Modal
         open={openDeck}
         onClose={handleDeckClose}
+        sx={{
+          overflow: 'scroll',
+          height: '100'
+        }}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={{
+          position: 'absolute',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: 600,
+          bgcolor: 'background.paper',
+          border: '2px solid #000',
+          boxShadow: 24,
+          p: 4,
+        }}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Library || Current Deck
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
 
           </Typography>
-          <TransferList />
+          <TransferList cards={cards}  socket={socket}/>
         </Box>
       </Modal>
       </div>
