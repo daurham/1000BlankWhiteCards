@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Modal, Stack, Select, FormControl, MenuItem, InputLabel, TextField} from '@mui/material';
 import CanvasDraw from "react-canvas-draw";
-import TransferList from './TransferList'
+import TransferList from './TransferList';
+import Cards from './Cards.jsx';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -24,6 +26,8 @@ export default function BasicModal() {
   const [openCanvas, setCanvasOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState('red');
   const [openDeck, setDeckOpen] = useState(false);
+  const [photo, setPhoto] = useState();
+  const canvasDraw = useRef();
 
   // functions
   const handleCanvasOpen = () => setCanvasOpen(true);
@@ -42,15 +46,38 @@ export default function BasicModal() {
   const handleTags = (e) => {
     setTags(e.target.value);
   }
+
+  const handleClear = (e) =>{
+    e.preventDefault
+    canvasDraw.current.clear();
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    let data = {
-      points: points,
-      description: description,
-      tags: tags
-    }
-    console.log('data: ', data)
+    // make the post to cloudinary
+    const url = canvasDraw.current.getDataURL()
+    console.log('url: ', url);
+    const data = new FormData();
+    data.append('file', url);
+    data.append('upload_preset', 'catwalk');
+    data.append('cloud_name', 'dgdqzfkbf');
+
+    axios({
+      method: 'post',
+      url: 'https://api.cloudinary.com/v1_1/dgdqzfkbf/image/upload',
+      data,
+    })
+      .then((res) => {
+        const { data: imageData } = res;
+        console.log(imageData.url);
+        axios.post('', {
+          data
+        })
+      })
+      .catch((err) => console.log(err));
+
   }
+
   return (
     <div>
       <h1>Lobby</h1>
@@ -73,7 +100,10 @@ export default function BasicModal() {
             Add a card!
           </Typography>
         <Stack direction="row" spacing={2}>
-          <CanvasDraw brushColor={selectedColor} />
+          <CanvasDraw
+          brushColor={selectedColor}
+          ref={canvasDraw}
+          />
           <Stack direction="column" spacing={2}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Settings:
@@ -106,6 +136,7 @@ export default function BasicModal() {
             />
             <TextField id="outlined-basic" label="Tags" variant="outlined" onChange={handleTags} />
             <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+            <Button variant="outlined" onClick={handleClear}>Clear</Button>
           </Stack>
         </Stack>
         </Box>
