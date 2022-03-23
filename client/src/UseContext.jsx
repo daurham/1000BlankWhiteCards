@@ -20,7 +20,7 @@ export default function Context() {
   useEffect(() => {
     const cardListListener = (newCards) => {
       console.log("card-list", newCards);
-      getCards(newCards);
+      setCards(newCards);
     };
 
     socket.on('card-list', cardListListener);
