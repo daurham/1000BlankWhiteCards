@@ -2,7 +2,9 @@ import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Box, Button, Typography, Modal, Stack, Select, FormControl, MenuItem, InputLabel, TextField} from '@mui/material';
 import CanvasDraw from "react-canvas-draw";
-import TransferList from './TransferList'
+import TransferList from './TransferList';
+import Cards from './Cards.jsx';
+import axios from 'axios';
 
 const style = {
   position: 'absolute',
@@ -24,6 +26,7 @@ export default function BasicModal() {
   const [openCanvas, setCanvasOpen] = useState(false);
   const [selectedColor, setSelectedColor] = useState('red');
   const [openDeck, setDeckOpen] = useState(false);
+  const [photo, setPhoto] = useState();
   const canvasDraw = useRef();
 
   // functions
@@ -46,21 +49,35 @@ export default function BasicModal() {
 
   const handleClear = (e) =>{
     e.preventDefault
-    const url = canvasDraw.current.getDataURL()
-    console.log('url: ', url)
     canvasDraw.current.clear();
   }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     // make the post to cloudinary
+    const url = canvasDraw.current.getDataURL()
+    console.log('url: ', url);
+    const data = new FormData();
+    data.append('file', url);
+    data.append('upload_preset', 'catwalk');
+    data.append('cloud_name', 'dgdqzfkbf');
 
-    let data = {
-      points: points,
-      description: description,
-      tags: tags
-    }
-    console.log('data: ', data)
+    axios({
+      method: 'post',
+      url: 'https://api.cloudinary.com/v1_1/dgdqzfkbf/image/upload',
+      data,
+    })
+      .then((res) => {
+        const { data: imageData } = res;
+        console.log(imageData.url);
+        axios.post('', {
+          data
+        })
+      })
+      .catch((err) => console.log(err));
+
   }
+
   return (
     <div>
       <h1>Lobby</h1>
@@ -80,7 +97,7 @@ export default function BasicModal() {
       >
         <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-            Add A card!
+            Add a card!
           </Typography>
         <Stack direction="row" spacing={2}>
           <CanvasDraw
