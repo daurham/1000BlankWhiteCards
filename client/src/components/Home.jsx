@@ -29,6 +29,21 @@ export default function Home() {
     // add a player here to socket
   }
 
+  socket.on('player-list', (players) => {
+    console.log(players);
+  });
+
+  // useEffect(() => {
+  //   const playersListener = (playerList) => {
+  //     console.log("player-list", playerList);
+  //     setPlayers(playerList);
+  //     setCounter(playerList.length)
+  //   };
+
+  //   socket.on('player-list', playersListener);
+  //   return () => socket.off('player-list', playersListener);
+  // }, [players]);
+
   const handleUserName = (e) => {
     setUserNameInput(e.target.value);
   }
