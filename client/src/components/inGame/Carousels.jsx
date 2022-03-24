@@ -4,11 +4,12 @@ import { useData } from '../../UseContext';
 import MediaCard from '../Card.jsx';
 
 export default function Carousels() {
-  const dummyCardData = useData();
-  console.log(dummyCardData.cards, 'dummyCardData.cards in Carousel');
+  const { cards } = useData();
+  const deck = cards.filter(card => card.position === 'deck');
+  console.log(deck, 'deck in Carousel');
   return(
     <Carousel interval={null}>
-      {dummyCardData.cards.map((item) =>
+      {deck.map((item) =>
         <Carousel.Item>
           <img
             className="d-block w-100"

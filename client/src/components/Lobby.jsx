@@ -6,6 +6,7 @@ import TransferList from './TransferList';
 import Cards from './Cards.jsx';
 import axios from 'axios';
 import { useData } from '../UseContext';
+import styled from 'styled-components';
 
 const style = {
   position: 'absolute',
@@ -34,7 +35,7 @@ export default function BasicModal() {
   const [allcards, setAllCards] = useState([]);
   const canvasDraw = useRef();
 
-  const { socket, cards, getCards } = useData();
+  const { socket, cards, getCards, players, userName } = useData();
 
   // socket.on('card-list', (cards) => {
     // console.log(cards);
@@ -128,10 +129,9 @@ export default function BasicModal() {
       <h1>Lobby</h1>
       <div>
         <h4>Players</h4>
-        <div>Player 1: Alvina</div>
-        <div>Player 2: Jini</div>
-        <div>Player 3: Waylon</div>
-        <div>Player 4: Trevor</div>
+        {players.map((player, index) => (
+          <div key={index}> Player {index + 1}: {player.name} </div>
+        ))}
       </div>
       <Button onClick={handleCanvasOpen}>Add A Card!</Button>
       <Modal
@@ -142,7 +142,7 @@ export default function BasicModal() {
       >
         <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-            {cards.length < 40 ? 'Add 10 cards before moving on!' : 'Add 5 cards before moving on!'}
+            {cards.length < 40 ? `Add ${Math.floor((40 - cards.length) / 4)} cards before moving on!` : `You've got enough cards!`}
           </Typography>
         <Stack direction="row" spacing={2}>
           <CanvasDraw
@@ -171,7 +171,7 @@ export default function BasicModal() {
                 <MenuItem value={'pink'}>Pink</MenuItem>
               </Select>
             </FormControl>
-            <TextField id="outlined-basic" label="User" variant="outlined" value={user} onChange={handleUser}/>
+            <TextField id="outlined-basic" label="User" variant="outlined" value={userName} onChange={handleUser}/>
             <TextField id="outlined-basic" label="Points" variant="outlined" value={points} type="number" onChange={handlePoints}/>
             <TextField
               id="outlined-multiline-static"

@@ -1,14 +1,15 @@
 import React from 'react';
 import styled from "styled-components";
 import Form from 'react-bootstrap/Form';
+import { useData } from '../../UseContext';
 
 export default function TurnTracker() {
-  const users = ['Alvina', 'Jini', 'Trevor', 'Waylon'];
+  const { players } = useData();
   return(
     <Form.Select aria-label="Default select example">
       <option>User Tracker</option>
-      {users.map((user, index) =>
-        <option value={user} key={index}>{user}</option>
+      {players.map((player, index) =>
+        <option value={player} key={index}>{player.name}</option>
       )}
     </Form.Select>
   );
