@@ -11,6 +11,12 @@ export default function Library() {
     setSort(e.target.value);
   }
 
+  const container = {
+    display: 'flex'
+    flexWrap: 'wrap'
+  }
+
+
   return (
     <div>
     <h1>Library</h1>
@@ -19,18 +25,10 @@ export default function Library() {
       <option value='newest' >Newest</option>
       <option value='createdby' >Created By</option>
     </select>
-    {/* {sort === 'createdby' ? (
-      <select name='player' id='player'>
-        <option value='Alvina'>Alvina</option>
-        <option value='Jake'>Jake</option>
-        <option value='Jini'>Jini</option>
-        <option value='Karli'>Karli</option>
-        <option value='Kevin'>Kevin</option>
-        <option value='Trevor'>Trevor</option>
-        <option value='Waylon'>Waylon</option>
-      </select>
-        ) : null} */}
-    <Cards />
+    <div>
+      <Cards />
+    </div>
+
     <Link to="/">Back to home</Link>
     </div>
   )
