@@ -142,7 +142,7 @@ export default function BasicModal() {
       >
         <Box sx={style}>
         <Typography id="modal-modal-title" variant="h6" component="h2">
-            {allcards.length < 40 ? 'Add 10 cards before moving on!' : 'Add 5 cards before moving on!'}
+            {cards.length < 40 ? 'Add 10 cards before moving on!' : 'Add 5 cards before moving on!'}
           </Typography>
         <Stack direction="row" spacing={2}>
           <CanvasDraw

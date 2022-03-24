@@ -15,6 +15,7 @@ export function useData() {
 export default function Context() {
   const [positions, setPositions] = useState();
   const [cards, setCards] = useState();
+  const [sort, setSort] = useState();
 
   // subscribe to card-list messages from game server
   useEffect(() => {
@@ -31,7 +32,7 @@ export default function Context() {
   useEffect(() => socket.emit('get-cards'), []);
 
   const value = useMemo(() => ({
-    positions, setPositions, cards, setCards, socket,
+    positions, setPositions, cards, setCards, socket, sort, setSort
   }), [positions, cards]);
 
   return !positions && !cards ? null : (
