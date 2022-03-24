@@ -11,10 +11,13 @@ export default function Library() {
     setSort(e.target.value);
   }
 
-  // const container = {
-  //   display: 'flex',
-  //   flexWrap: 'wrap'
-  // }
+  const container = {
+    display: 'flex',
+    flexWrap: 'wrap',
+    overflowY: 'scroll',
+    height: '80vh',
+    width: 'fitContent'
+  }
 
 
   return (
@@ -25,7 +28,7 @@ export default function Library() {
       <option value='newest' >Newest</option>
       <option value='createdby' >Created By</option>
     </select>
-    <div>
+    <div style={container}>
       <Cards />
     </div>
 
