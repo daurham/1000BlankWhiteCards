@@ -8,25 +8,26 @@ import Typography from '@mui/material/Typography';
 
 export default function MediaCard({card}) {
   return !card ? null : (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, height: 500 }}>
       <CardMedia
         component="img"
-        height="140"
+        height="400"
+        width="100"
         image={card.image}
         alt="image of card"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        {/* <Typography gutterBottom variant="h5" component="div">
           {card.title}
-        </Typography>
+        </Typography> */}
         <Typography gutterBottom variant="h5" component="div">
-          {card.points}
+          {card.points > 0 ? `+${card.points}` : `${card.points}` }
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {card.rules}
+          {card.cardRules}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          {card.tags}
+          #{card.tags}
         </Typography>
         {/* <Typography variant="body2" color="text.secondary">
           {card.date}
