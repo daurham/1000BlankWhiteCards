@@ -1,6 +1,9 @@
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import styled from "styled-components";
 import Carousels from './Carousels.jsx';
+import Card from './FunctionalCard';
+import GlobalCard from '../Card';
+import { useData } from '../../UseContext';
 
 const Container = styled.div`
   display: flex;
@@ -132,12 +135,47 @@ const Button = styled.div`
 `;
 
 export default function GameBoard() {
-  // const dummyCardData = useData();
-  // console.log(dummyCardData.cards, 'dummyCardData.cards');
 
-  const handleDraw = () => {
-    console.log('draw');
-  };
+//   const dummyCardData = useData();
+// const card = dummyCardData.cards;
+
+const { cards, socket, players, userName } = useData();
+const playerOrder = players.filter(player => player.name !== userName);
+
+const deck = cards.filter(card => card.position === 'deck');
+const center = cards.filter(card => card.position === 'center');
+const playerOne = cards.filter(card => card.position === userName)
+const playerTwo = cards.filter(card => card.position === playerOrder[0])
+const playerThree = cards.filter(card => card.position === playerOrder[1])
+const playerFour = cards.filter(card => card.position === playerOrder[2])
+const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
+
+//const [playerState, setPlayerState] = useState({Global: []})
+//const [playerDeck, setPlayerDeck] = useState([]);
+const [globalDeck, setGlobalDeck] = useState(deck)
+
+// useEffect(() => {
+//   players.forEach(item => setPlayerState(playerState => ({...playerState, [item]: [] })));
+// }, [players.length])
+
+// useEffect(() => {
+//   card.forEach(item => setGlobalDeck(globalDeck => ([...globalDeck, item])));
+// }, [])
+
+ function handleChange(card, moveTo) {
+   //setPlayerDeck(playerDeck.filter(item => item.rules !== card.rules));
+   //setPlayerState({...playerState, [moveTo]:[...playerState[moveTo], card]});
+   socket.emit('move-card', card.id, moveTo)
+ }
+
+ //const moveCard = (id, position) => socket.emit('move-card', id, position);
+
+ function handleDraw() {
+   const card = globalDeck[(globalDeck.length-1)];
+  //setGlobalDeck(globalDeck.filter(item => item.rules !== card.rules));
+  socket.emit('move-card', card.id, `${userName}Hand`)
+  //setPlayerDeck(playerDeck => [...playerDeck, card]);
+ }
 
   return (
     <Container>
@@ -146,18 +184,20 @@ export default function GameBoard() {
           <Board>
 
             <Top>
-              <Carousels />
+              <Carousels cards={playerThree} isPlayer={false}/>
             </Top>
 
             <Left>
-              <Carousels />
+              <Carousels cards={playerTwo} isPlayer={false}/>
             </Left>
 
             <Innerboard>
               <Cards>
-                <Deck>Deck</Deck>
+                <Deck>Deck
+                  <Carousels cards={deck} player={false}/>
+                </Deck>
                 <Center>
-                  <Carousels />
+                <Carousels cards={center} player={false}/>
                 </Center>
               </Cards>
               <Button>
@@ -166,18 +206,18 @@ export default function GameBoard() {
             </Innerboard>
 
             <Right>
-              <Carousels />
+              <Carousels cards={playerFour} isPlayer={false}/>
             </Right>
 
             <Bottom>
-              <Carousels />
+              <Carousels cards={playerOne} isPlayer={false}/>
             </Bottom>
 
           </Board>
          </InnerContainer>
 
           <Hand>
-            <Carousels />
+            <Carousels cards={playerDeck} isPlayer={true} player={userName} handleChange={handleChange} players={players}/>
           </Hand>
       </Background>
     </Container>
