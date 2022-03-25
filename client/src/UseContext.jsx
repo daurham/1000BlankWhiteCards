@@ -40,10 +40,11 @@ export default function Context() {
       setPlayers(playerList);
       setCounter(playerList.length)
     };
+    console.log('context test')
 
     socket.on('player-list', playersListener);
     return () => socket.off('player-list', playersListener);
-  }, [])
+  }, [players])
 
   // ask for a cards update
   useEffect(() => socket.emit('get-cards'), []);
@@ -52,10 +53,10 @@ export default function Context() {
   useEffect(() => socket.emit('get-players'), []);
 
   const value = useMemo(() => ({
-    positions, setPositions, cards, setCards, socket, sort, setSort, fullLobby, setUserName, userName, players, counter, setCounter
+    positions, setPositions, cards, setCards, socket, sort, setSort, fullLobby, setUserName, userName, players, setPlayers, counter, setCounter
   }), [positions, cards, sort, userName, players, counter]);
 
-  return !positions && !cards ? null : (
+  return !cards || !players ? null : (
     <DataContext.Provider value={value}>
       <App />
     </DataContext.Provider>

@@ -19,7 +19,6 @@ export default function Library() {
     width: 'fitContent'
   }
 
-
   return (
     <div>
     <h1>Library</h1>
