@@ -142,6 +142,16 @@ export default function GameBoard() {
 const { cards, socket, players, userName } = useData();
 const playerOrder = players.filter(player => player.name !== userName);
 
+useEffect(() => socket.emit('get-players'),[]);
+socket.on('player-list', (players) => {
+  console.log('global socket on board: ',players);
+});
+// console.log('userName: ', userName);
+// console.log('cards: ', cards);
+console.log('Board, players: ', players);
+console.log('Board, socket: ', socket);
+// console.log('playerOrder: ', playerOrder);
+
 const deck = cards.filter(card => card.position === 'deck');
 const center = cards.filter(card => card.position === 'center');
 const playerOne = cards.filter(card => card.position === userName)

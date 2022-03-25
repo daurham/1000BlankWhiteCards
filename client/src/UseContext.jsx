@@ -54,9 +54,12 @@ export default function Context() {
   useEffect(() => socket.emit('get-cards'), []);
 
   // ask for a players update
-  useEffect(() => socket.emit('get-players'), []);
+  useEffect(() => socket.emit('get-players'),[]);
 
-  console.log(userName);
+  console.log('UseContext Players: ', players);
+  // console.log('UseContext: ', );
+  // console.log('UseContext: ', );
+
   const value = useMemo(() => ({
     positions, setPositions, cards, setCards, socket, sort, setSort, fullLobby, setUserName, userName, players, setPlayers, counter, setCounter
   }), [positions, cards, sort, userName, players, counter]);

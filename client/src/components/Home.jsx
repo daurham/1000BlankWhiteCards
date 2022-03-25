@@ -20,6 +20,7 @@ export default function Home() {
   const [ userNameInput, setUserNameInput ] = useState('');
   // const [ playersLocal, setPlayersLocal ] = useState('');
   const { userName, setUserName, socket, players, setPlayers, counter, setCounter } = useData();
+  console.log('Home, socket: ', socket);
   // const [ counter, setCounter ] = useState(0);
 
   console.log('players.length: ', players.length);

@@ -36,6 +36,8 @@ export default function BasicModal() {
   const canvasDraw = useRef();
 
   const { socket, cards, setCards, players, userName } = useData();
+  console.log('Lobby, players: ', players);
+  console.log('Lobby, socket: ', socket);
 
   //functions
   const handleCanvasOpen = () => setCanvasOpen(true);
