@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import {Modal, Box} from '@mui/material';
 
 // export default function Carousels() {
 //   const { cards } = useData();
@@ -24,6 +26,38 @@ import Select from '@mui/material/Select';
 export default function Carousels(props) {
 
     const [deckContext, setDeck] = useState(props.player);
+    const[rules, setRules]=useState('')
+    const [open, setOpen] = React.useState(false);
+
+    // if(rules.length > 1){
+    //   setOpen(true);
+    // }
+    const handleOpen = (e) => {
+      e.preventDefault()
+      console.log('click')
+      const desc =  e.target.alt
+
+        setRules(desc)
+        setOpen(true);
+
+      console.log('desc: ', desc)
+    }
+    const handleClose = () => {
+      setRules('');
+      setOpen(false);
+    }
+
+    const style = {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      width: 500,
+      bgcolor: 'background.paper',
+      border: '2px solid #000',
+      boxShadow: 24,
+      p: 4,
+    };
 
   return !props.cards ? null : (
     <Carousel interval={null}>
@@ -31,20 +65,49 @@ export default function Carousels(props) {
         <Carousel.Item>
           {/* {props.isPlayer ? <FunctionalCard card={item} handleChange={props.handleChange} player={'One'} players={props.players}/> : <MediaCard card={item}/>} */}
           <img
-            className="d-block w-100"
+            id="carousel-img"
             src={item.image}
-            alt="card"
+            alt={item.cardRules}
+            value={item.cardRules}
+            onClick={handleOpen}
+            style={{cursor: "pointer"}}
           />
-          <Carousel.Caption>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Current Card
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <img src={item.image} />
+            <br/>
+            Author: {item.createdBy}
+            <br/>
+            Points: {item.points}
+            <br/>
+            Rules: {item.cardRules}
+          </Typography>
+        </Box>
+      </Modal>
+          {/* <Carousel.Caption>
             <p>{item.points}</p>
-            <p style={{textAlign: 'center'}}>{item.rules}</p>
-          </Carousel.Caption>
+            <p style={{textAlign: 'center'}}>
+              {item.cardRules}
+            </p>
+          </Carousel.Caption> */}
+          <div id='hand-btns'>
           {props.isPlayer ? <>
+          <Stack spacing={3} direction='row' >
             <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
             value={deckContext}
             label="Age"
+            size="small"
             onChange={(e) => (setDeck(e.target.value))}
           >
             {/* <MenuItem value={'One'}>Player One</MenuItem>
@@ -57,8 +120,10 @@ export default function Carousels(props) {
             ))}
             <MenuItem value={'center'}>Global</MenuItem>
           </Select>
-          <Button size="small" onClick={() => props.handleChange(item, deckContext)}>Move</Button>
+          <Button variant='outlined' size="small" id="move-btn" onClick={() => props.handleChange(item, deckContext)}>Move</Button>
+          </Stack>
           </> : null}
+          </div>
         </Carousel.Item>
       )}
     </Carousel>

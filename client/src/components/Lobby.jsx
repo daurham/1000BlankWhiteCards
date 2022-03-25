@@ -40,6 +40,8 @@ export default function BasicModal() {
   const canvasDraw = useRef();
 
   const { socket, cards, setCards, players, userName } = useData();
+  const canJoin = () => players.length === 4;
+  let hasEnoughPlayers = canJoin();
 
   //functions
   const handleCanvasOpen = () => setCanvasOpen(true);
@@ -106,9 +108,10 @@ export default function BasicModal() {
       .catch((err) => console.log(err));
 
   }
+  useEffect(() => hasEnoughPlayers = canJoin(), [players])
 
   return !cards || !players ? null : (
-    <div>
+    <div id='lobby'>
       <Typography variant='h1' id="lobby-title">LOBBY</Typography>
       <div className="lobby-players">
         <Typography variant='h2' id="lobby-players-title">PLAYERS</Typography>
@@ -213,7 +216,7 @@ export default function BasicModal() {
           </Modal>
         </div>
         <div className="lobby-start">
-          <StyledLink to="/Game">
+          <StyledLink to={hasEnoughPlayers ? "/Game" : '#'}>
             <Button variant='outlined' size='large' id="start-btn">Start Game</Button>
           </StyledLink>
         </div>

@@ -28,7 +28,7 @@ export default function Library() {
   }
 
   return (
-    <div>
+    <div id='library'>
       <Typography variant='h1' id='libraryitle'>Card Library</Typography>
       <Typography>
         <Stack spacing={5} direction='row' className='library'>
