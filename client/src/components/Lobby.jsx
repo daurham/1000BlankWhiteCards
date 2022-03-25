@@ -116,16 +116,16 @@ export default function BasicModal() {
   }
 
 
-  useEffect(() => {
-    // const playersListener = (playerList) => {
-    //   console.log("player-list", playerList);
-    //   setPlayers(playerList);
-    //   setCounter(playerList.length)
-    // };
+  // useEffect(() => {
+  //   // const playersListener = (playerList) => {
+  //   //   console.log("player-list", playerList);
+  //   //   setPlayers(playerList);
+  //   //   setCounter(playerList.length)
+  //   // };
 
-    // socket.on('player-list', playersListener);
-    // return () => socket.off('player-list', playersListener);
-  }, [players]);
+  //   socket.on('player-list', playersListener);
+  //   return () => socket.off('player-list', playersListener);
+  // }, [players]);
 
   return (
     <div>
