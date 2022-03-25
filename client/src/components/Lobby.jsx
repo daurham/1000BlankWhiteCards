@@ -35,17 +35,14 @@ export default function BasicModal() {
   const [allcards, setAllCards] = useState([]);
   const canvasDraw = useRef();
 
-  const { socket, cards, getCards, players, userName } = useData();
+  const { socket, cards, setCards, players, userName } = useData();
 
-  // socket.on('card-list', (cards) => {
-  // console.log(cards);
-  // }
-
-  // functions
+  //functions
   const handleCanvasOpen = () => setCanvasOpen(true);
   const handleCanvasClose = () => setCanvasOpen(false);
   const handleDeckOpen = () => setDeckOpen(true);
   const handleDeckClose = () => setDeckOpen(false);
+  // edit this one to be like handle selected color
   const handleUser = (e) => {
     setUser(e.target.value);
   }
@@ -69,9 +66,7 @@ export default function BasicModal() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // make the post to cloudinary
     const url = canvasDraw.current.getDataURL()
-    // console.log('url: ', url);
     const data = new FormData();
     data.append('file', url);
     data.append('upload_preset', 'catwalk');
@@ -104,13 +99,6 @@ export default function BasicModal() {
         setPoints(() => '');
         setTags(() => '');
       })
-      // .then(() => {
-      //   canvasDraw.current.clear();
-      //   setTags(() => '');
-      //   setDescription(() => '');
-      //   setPoints(() => '');
-      //   setTags(() => '');
-      // })
       .catch((err) => console.log(err));
 
   }
@@ -127,7 +115,7 @@ export default function BasicModal() {
   //   return () => socket.off('player-list', playersListener);
   // }, [players]);
 
-  return (
+  return !cards || !players ? null : (
     <div>
       <h1>Lobby</h1>
       <div>
@@ -174,7 +162,23 @@ export default function BasicModal() {
                   <MenuItem value={'pink'}>Pink</MenuItem>
                 </Select>
               </FormControl>
-              <TextField id="outlined-basic" label="User" variant="outlined" value={userName} onChange={handleUser} />
+              <FormControl >
+                <InputLabel id="demo-simple-select-label">User</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={user}
+                  label="User"
+                  onChange={handleUser}
+                >
+                  {players.map((player, index) =>
+                    <MenuItem value={player.name} key={index}>
+                      {player.name}
+                    </MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+
               <TextField id="outlined-basic" label="Points" variant="outlined" value={points} type="number" onChange={handlePoints} />
               <TextField
                 id="outlined-multiline-static"

@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useData } from '../UseContext';
+import axios from 'axios';
 
 export default function Home() {
   const [ userNameInput, setUserNameInput ] = useState('');
-  const { userName, setUserName, socket, players, counter, setCounter } = useData();
+  // const [ playersLocal, setPlayersLocal ] = useState('');
+  const { userName, setUserName, socket, players, setPlayers, counter, setCounter } = useData();
   // const [ counter, setCounter ] = useState(0);
 
-  const lobbyLinkActive = !!userName && players.length < 4;
+  console.log('players.length: ', players.length);
+  const lobbyLinkActive = players.length <= 4;
+  // console.log(lobbyLinkActive);
   const lobbyLinkClass = lobbyLinkActive ? "" : "disabled";
   // console.log(lobbyLinkActive)
   // console.log(counter);
 
   // Don't allow navigation to lobby until username is set.
-  const lobbyLinkOnClick = (e) => {
-    if (!lobbyLinkActive) {
-      e.preventDefault();
-    }
-  }
+  // const lobbyLinkOnClick = (e) => {
+  //   if (!lobbyLinkActive) {
+  //     e.preventDefault();
+  //   }
+  // }
 
   const onSubmitUserName = (e) => {
     e.preventDefault()
@@ -26,23 +30,30 @@ export default function Home() {
     socket.emit('add-player', userNameInput)
     // setCounter(() => counter++);
     // useEffect(() => {
-    // add a player here to socket
+    // // add a player here to socket
+    // socket.on('player-list', (players) => setPlayersLocal);
   }
 
   socket.on('player-list', (players) => {
-    console.log(players);
+    console.log('global socket on home: ',players);
   });
 
   // useEffect(() => {
   //   const playersListener = (playerList) => {
   //     console.log("player-list", playerList);
   //     setPlayers(playerList);
-  //     setCounter(playerList.length)
-  //   };
+  //     setPlayersLocal(playerList);
+  //     console.log('curr players: ', playerList)
+  //   }
+  //   console.log('updates users: ', userNameInput)
 
   //   socket.on('player-list', playersListener);
   //   return () => socket.off('player-list', playersListener);
-  // }, [players]);
+  // }, [players, userName, userNameInput]);
+
+  // if (playersLocal) {
+  //   console.log('rendered player name?',playersLocal)
+  // }
 
   const handleUserName = (e) => {
     setUserNameInput(e.target.value);
@@ -54,16 +65,17 @@ export default function Home() {
     console.log('start a new game')
     // will use socket.emit here to delete all players
     // might need to update a state to rerender the page
+    socket.emit('end-game');
   }
 
   return (
     <div>
       <h1>1000 Blank White Cards!</h1>
       <form onSubmit={onSubmitUserName}>
-        <input type='text' placeholder='Your Nickname' value={userNameInput} disabled={lobbyLinkActive} onChange={handleUserName} />
-        <input type='submit' disabled={!!userName} value='Set Nickname' disabled={lobbyLinkActive} />
+        <input type='text' placeholder='Your Nickname' value={userNameInput}  onChange={handleUserName} />
+        <input type='submit' value='Set Nickname'  />
       </form>
-      {lobbyLinkActive ? (<Link to='/Lobby' className={lobbyLinkClass} ><h3>Go To Lobby!</h3></Link>) :<Link to='/' className={lobbyLinkClass} ><h3>Full Lobby!</h3></Link>}
+      {lobbyLinkActive ? (<Link to='/Lobby' className={lobbyLinkClass} ><h3>Go To Lobby!</h3></Link>) : <Link to='/' className={lobbyLinkClass} ><h3>Full Lobby!</h3></Link>}
       <Link to="/Library"><h3>Card Library</h3></Link>
       <button onClick={handleNew}>New Game</button>
     </div>

@@ -4,7 +4,6 @@ import {
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
-
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
 }
