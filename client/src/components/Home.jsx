@@ -41,7 +41,7 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <div id='home'>
       <Typography variant='h1' id='mainTitle'>
         1000 BLANK WHITE CARDS
       </Typography>
