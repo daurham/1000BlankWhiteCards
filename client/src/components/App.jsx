@@ -9,8 +9,6 @@ import { useData } from '../UseContext';
 
 
 export default function App() {
-  // const [dummyCardData] = useData();
-  // console.log(dummyCardData);
   return (
     <Router>
       <Routes>

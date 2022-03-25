@@ -7,77 +7,36 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import { makeStyles } from '@mui/styles';
+import styled from 'styled-components';
 
-// const useStyles = makeStyles({
-//   inputField: {
-//     backgroundColor: 'rgba(255, 255, 255, 0.5)',
-//     marginRight:'10px',
-//   },
-// });
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`;
 
 export default function Home() {
-  // const classes = useStyles();
-  const [ userNameInput, setUserNameInput ] = useState('');
-  // const [ playersLocal, setPlayersLocal ] = useState('');
-  const { userName, setUserName, socket, players, setPlayers, counter, setCounter } = useData();
-  // const [ counter, setCounter ] = useState(0);
+  const [userNameInput, setUserNameInput] = useState('');
+  const { userName, setUserName, socket, players, setPlayers } = useData();
 
-  console.log('players.length: ', players.length);
   const lobbyLinkActive = players.length <= 4;
-  // console.log(lobbyLinkActive);
   const lobbyLinkClass = lobbyLinkActive ? "" : "disabled";
-  // console.log(lobbyLinkActive)
-  // console.log(counter);
-
-  // Don't allow navigation to lobby until username is set.
-  // const lobbyLinkOnClick = (e) => {
-  //   if (!lobbyLinkActive) {
-  //     e.preventDefault();
-  //   }
-  // }
 
   const onSubmitUserName = (e) => {
     e.preventDefault()
-    // console.log('username: ', userNameInput)
     setUserName(userNameInput);
     socket.emit('add-player', userNameInput)
-    // setCounter(() => counter++);
-    // useEffect(() => {
-    // // add a player here to socket
-    // socket.on('player-list', (players) => setPlayersLocal);
   }
 
   socket.on('player-list', (players) => {
-    console.log('global socket on home: ',players);
+    // console.log('global socket on home: ',players);
   });
-
-  // useEffect(() => {
-  //   const playersListener = (playerList) => {
-  //     console.log("player-list", playerList);
-  //     setPlayers(playerList);
-  //     setPlayersLocal(playerList);
-  //     console.log('curr players: ', playerList)
-  //   }
-  //   console.log('updates users: ', userNameInput)
-
-  //   socket.on('player-list', playersListener);
-  //   return () => socket.off('player-list', playersListener);
-  // }, [players, userName, userNameInput]);
-
-  // if (playersLocal) {
-  //   console.log('rendered player name?',playersLocal)
-  // }
 
   const handleUserName = (e) => {
     setUserNameInput(e.target.value);
   }
-  // useEffect(() => {}, [lobbyLinkActive])
 
-  const handleNew=(e)=>{
+  const handleNew = (e) => {
     e.preventDefault()
-    console.log('start a new game')
-    // will use socket.emit here to delete all players
-    // might need to update a state to rerender the page
+    // console.log('start a new game')
     socket.emit('end-game');
   }
 
@@ -88,14 +47,29 @@ export default function Home() {
       </Typography>
       <div className="home-btns">
         <form onSubmit={onSubmitUserName} className='form'>
-          <TextField type='text' placeholder='Your Nickname' value={userNameInput}  onChange={handleUserName} required
-          id="outlined-required" size='large' />
+          <TextField type='text' placeholder='Your Nickname' value={userNameInput} onChange={handleUserName} required
+            id="outlined-required" size='large' />
           <Button type='submit' variant='outlined' size='large' id="btn1" value='Set Nickname'>Submit</Button>
         </form>
         <Typography>
-          <Stack spacing={2} direction='row' className='link'>
-            {lobbyLinkActive ? (<Button href='/Lobby' variant='outlined' size='large' className={lobbyLinkClass} id="btn2">Go To Lobby</Button>) : <Button href='/' variant='outlined' size='large' className={lobbyLinkClass} id="btn2">Full Lobby</Button>}
-            <Button href="/Library" variant='outlined' size='large' id="btn3">Card Library</Button>
+          <Stack spacing={2} direction='row' className='link' >
+            {lobbyLinkActive ?
+              <StyledLink to='/Lobby' className={lobbyLinkClass} >
+                <Button variant='outlined' size='large' className={lobbyLinkClass} id="btn2">
+                  Go To Lobby
+                </Button>
+              </StyledLink> :
+              <Link to='/' className={lobbyLinkClass} >
+                <Button variant='outlined' size='large' className={lobbyLinkClass} id="btn2">
+                  Full Lobby
+                </Button>
+              </Link>
+            }
+            <StyledLink to="/Library">
+              <Button variant='outlined' size='large' id="btn3">
+                Card Library
+              </Button>
+            </StyledLink>
           </Stack>
         </Typography>
         <Typography className='gamebtn'>
