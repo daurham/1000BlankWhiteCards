@@ -2,7 +2,7 @@ import React, { useContext, useState, useMemo, useEffect } from 'react';
 import App from './components/App.jsx';
 import axios from 'axios';
 import io from 'socket.io-client';
-
+import useLocalStorageState from 'use-local-storage-state'
 
 const socket = io('http://localhost:8080');
 
@@ -17,7 +17,7 @@ export default function Context() {
   const [cards, setCards] = useState();
   const [sort, setSort] = useState();
   const [fullLobby, setFullLobby] = useState(false);
-  const [userName, setUserName] = useState();
+  const [userName, setUserName] = useLocalStorageState('userName');
   const [players, setPlayers] = useState([]);
   const [ counter, setCounter ] = useState(0); // counts each player in the game
 
@@ -41,9 +41,14 @@ export default function Context() {
       setCounter(playerList.length)
     };
 
+
     socket.on('player-list', playersListener);
-    return () => socket.off('player-list', playersListener);
-  }, [])
+    socket.on('newPlayer', playersListener);
+    return () => {
+      socket.off('player-list', playersListener);
+      socket.off('newPlayer', playersListener);
+    };
+  }, [players])
 
   // ask for a cards update
   useEffect(() => socket.emit('get-cards'), []);
@@ -51,11 +56,12 @@ export default function Context() {
   // ask for a players update
   useEffect(() => socket.emit('get-players'), []);
 
+  console.log(userName);
   const value = useMemo(() => ({
-    positions, setPositions, cards, setCards, socket, sort, setSort, fullLobby, setUserName, userName, players, counter, setCounter
+    positions, setPositions, cards, setCards, socket, sort, setSort, fullLobby, setUserName, userName, players, setPlayers, counter, setCounter
   }), [positions, cards, sort, userName, players, counter]);
 
-  return !positions && !cards ? null : (
+  return !cards || !players ? null : (
     <DataContext.Provider value={value}>
       <App />
     </DataContext.Provider>
