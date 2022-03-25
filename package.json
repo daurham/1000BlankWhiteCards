@@ -57,7 +57,8 @@
     "socket.io": "^4.4.1",
     "socket.io-client": "^4.4.1",
     "source-map-loader": "^1.0.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "use-local-storage-state": "^16.0.1"
   },
   "resolutions": {
     "styled-components": "^5"

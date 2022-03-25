@@ -9,18 +9,19 @@ export default function Home() {
   const { userName, setUserName, socket, players, setPlayers, counter, setCounter } = useData();
   // const [ counter, setCounter ] = useState(0);
 
-  const lobbyLinkActive = players.length < 4;
+  console.log('players.length: ', players.length);
+  const lobbyLinkActive = players.length <= 4;
   // console.log(lobbyLinkActive);
   const lobbyLinkClass = lobbyLinkActive ? "" : "disabled";
   // console.log(lobbyLinkActive)
   // console.log(counter);
 
   // Don't allow navigation to lobby until username is set.
-  const lobbyLinkOnClick = (e) => {
-    if (!lobbyLinkActive) {
-      e.preventDefault();
-    }
-  }
+  // const lobbyLinkOnClick = (e) => {
+  //   if (!lobbyLinkActive) {
+  //     e.preventDefault();
+  //   }
+  // }
 
   const onSubmitUserName = (e) => {
     e.preventDefault()
@@ -72,7 +73,7 @@ export default function Home() {
       <h1>1000 Blank White Cards!</h1>
       <form onSubmit={onSubmitUserName}>
         <input type='text' placeholder='Your Nickname' value={userNameInput}  onChange={handleUserName} />
-        <input type='submit' disabled={!!userName} value='Set Nickname'  />
+        <input type='submit' value='Set Nickname'  />
       </form>
       {lobbyLinkActive ? (<Link to='/Lobby' className={lobbyLinkClass} ><h3>Go To Lobby!</h3></Link>) : <Link to='/' className={lobbyLinkClass} ><h3>Full Lobby!</h3></Link>}
       <Link to="/Library"><h3>Card Library</h3></Link>

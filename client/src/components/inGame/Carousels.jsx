@@ -53,9 +53,9 @@ export default function Carousels(props) {
             <MenuItem value={'Four'}>Player Four</MenuItem> */}
             <MenuItem value={props.player}>{props.player}</MenuItem>
             {props.players.map((player) => (
-              <MenuItem value={player}>{player}</MenuItem>
+              <MenuItem value={player.name}>{player.name}</MenuItem>
             ))}
-            <MenuItem value={'Global'}>Global</MenuItem>
+            <MenuItem value={'center'}>Global</MenuItem>
           </Select>
           <Button size="small" onClick={() => props.handleChange(item, deckContext)}>Move</Button>
           </> : null}

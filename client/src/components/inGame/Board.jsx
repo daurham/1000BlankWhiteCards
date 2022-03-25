@@ -145,14 +145,14 @@ const playerOrder = players.filter(player => player.name !== userName);
 const deck = cards.filter(card => card.position === 'deck');
 const center = cards.filter(card => card.position === 'center');
 const playerOne = cards.filter(card => card.position === userName)
-const playerTwo = cards.filter(card => card.position === playerOrder[0])
-const playerThree = cards.filter(card => card.position === playerOrder[1])
-const playerFour = cards.filter(card => card.position === playerOrder[2])
+const playerTwo = cards.filter(card => card.position === playerOrder[0].name)
+const playerThree = cards.filter(card => card.position === playerOrder[1].name)
+const playerFour = cards.filter(card => card.position === playerOrder[2].name)
 const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
 
 //const [playerState, setPlayerState] = useState({Global: []})
 //const [playerDeck, setPlayerDeck] = useState([]);
-const [globalDeck, setGlobalDeck] = useState(deck)
+// const [globalDeck, setGlobalDeck] = useState(deck)
 
 // useEffect(() => {
 //   players.forEach(item => setPlayerState(playerState => ({...playerState, [item]: [] })));
@@ -171,7 +171,8 @@ const [globalDeck, setGlobalDeck] = useState(deck)
  //const moveCard = (id, position) => socket.emit('move-card', id, position);
 
  function handleDraw() {
-   const card = globalDeck[(globalDeck.length-1)];
+  //  const card = globalDeck[(globalDeck.length-1)];
+  const card = deck[deck.length - 1];
   //setGlobalDeck(globalDeck.filter(item => item.rules !== card.rules));
   socket.emit('move-card', card.id, `${userName}Hand`)
   //setPlayerDeck(playerDeck => [...playerDeck, card]);
@@ -184,10 +185,12 @@ const [globalDeck, setGlobalDeck] = useState(deck)
           <Board>
 
             <Top>
+              {playerOrder[1].name}
               <Carousels cards={playerThree} isPlayer={false}/>
             </Top>
 
             <Left>
+              {playerOrder[0].name}
               <Carousels cards={playerTwo} isPlayer={false}/>
             </Left>
 
@@ -206,6 +209,7 @@ const [globalDeck, setGlobalDeck] = useState(deck)
             </Innerboard>
 
             <Right>
+              {playerOrder[2].name}
               <Carousels cards={playerFour} isPlayer={false}/>
             </Right>
 
@@ -217,7 +221,8 @@ const [globalDeck, setGlobalDeck] = useState(deck)
          </InnerContainer>
 
           <Hand>
-            <Carousels cards={playerDeck} isPlayer={true} player={userName} handleChange={handleChange} players={players}/>
+            {userName}
+            <Carousels cards={playerDeck} isPlayer={true} player={userName} handleChange={handleChange} players={playerOrder}/>
           </Hand>
       </Background>
     </Container>
