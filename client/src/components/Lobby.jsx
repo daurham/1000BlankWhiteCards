@@ -117,14 +117,16 @@ export default function BasicModal() {
 
   return !cards || !players ? null : (
     <div>
-      <h1>Lobby</h1>
-      <div>
-        <h4>Players</h4>
+      <Typography variant='h1' id="lobby-title">LOBBY</Typography>
+      <div className="lobby-players">
+        <Typography variant='h2' id="lobby-players-title">PLAYERS</Typography>
         {players.map((player, index) => (
-          <div key={index}> Player {index + 1}: {player.name} </div>
+          <Typography variant="subtitle1" key={index} id="lobby-player-name">{player.name.toUpperCase()}</Typography>
         ))}
       </div>
-      <Button onClick={handleCanvasOpen}>Add A Card!</Button>
+      <div className="lobby-add-btn">
+        <Button variant='outlined' size='large' id="add-btn" onClick={handleCanvasOpen}>Add A Card</Button>
+      </div>
       <Modal
         open={openCanvas}
         onClose={handleCanvasClose}
@@ -197,8 +199,8 @@ export default function BasicModal() {
       </Modal>
 
       <div>
-        <div>
-          <Button onClick={handleDeckOpen}>Edit Deck</Button>
+        <div className="lobby-edit">
+          <Button variant='outlined' size='large' id="edit-btn" onClick={handleDeckOpen}>Edit Deck</Button>
           <Modal
             open={openDeck}
             onClose={handleDeckClose}
@@ -209,28 +211,21 @@ export default function BasicModal() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={{
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 600,
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
-              boxShadow: 24,
-              p: 4,
-            }}>
+            <Box id="edit-deck-box">
               <Typography id="modal-modal-title" variant="h6" component="h2">
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
               </Typography>
               <TransferList cards={cards} socket={socket} />
             </Box>
           </Modal>
         </div>
-        <Link to="/Game">START GAME</Link>
-        <br />
-        <Link to="/">Exit</Link>
+          <div className="lobby-start">
+            <Button href="/Game" variant='outlined' size='large' id="start-btn">Start Game</Button>
+          </div>
+          <div className="lobby-exit">
+            <Button href="/" variant='outlined' size='large' id="exit-btn">Exit</Button>
+          </div>
       </div>
     </div>
   );

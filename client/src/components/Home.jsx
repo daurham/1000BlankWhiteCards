@@ -2,8 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useData } from '../UseContext';
 import axios from 'axios';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import { makeStyles } from '@mui/styles';
+
+// const useStyles = makeStyles({
+//   inputField: {
+//     backgroundColor: 'rgba(255, 255, 255, 0.5)',
+//     marginRight:'10px',
+//   },
+// });
 
 export default function Home() {
+  // const classes = useStyles();
   const [ userNameInput, setUserNameInput ] = useState('');
   // const [ playersLocal, setPlayersLocal ] = useState('');
   const { userName, setUserName, socket, players, setPlayers, counter, setCounter } = useData();
@@ -70,14 +83,28 @@ export default function Home() {
 
   return (
     <div>
-      <h1>1000 Blank White Cards!</h1>
-      <form onSubmit={onSubmitUserName}>
-        <input type='text' placeholder='Your Nickname' value={userNameInput}  onChange={handleUserName} />
-        <input type='submit' value='Set Nickname'  />
-      </form>
-      {lobbyLinkActive ? (<Link to='/Lobby' className={lobbyLinkClass} ><h3>Go To Lobby!</h3></Link>) : <Link to='/' className={lobbyLinkClass} ><h3>Full Lobby!</h3></Link>}
-      <Link to="/Library"><h3>Card Library</h3></Link>
-      <button onClick={handleNew}>New Game</button>
+      <Typography variant='h1' id='mainTitle'>
+        1000 BLANK WHITE CARDS
+      </Typography>
+      <div className="home-btns">
+        <form onSubmit={onSubmitUserName} className='form'>
+          <TextField type='text' placeholder='Your Nickname' value={userNameInput}  onChange={handleUserName} required
+          id="outlined-required" size='large' />
+          <Button type='submit' variant='outlined' size='large' id="btn1" value='Set Nickname'>Submit</Button>
+        </form>
+        <Typography>
+          <Stack spacing={2} direction='row' className='link'>
+            {lobbyLinkActive ? (<Button href='/Lobby' variant='outlined' size='large' className={lobbyLinkClass} id="btn2">Go To Lobby</Button>) : <Button href='/' variant='outlined' size='large' className={lobbyLinkClass} id="btn2">Full Lobby</Button>}
+            <Button href="/Library" variant='outlined' size='large' id="btn3">Card Library</Button>
+          </Stack>
+        </Typography>
+        <Typography className='gamebtn'>
+          <Button variant='outlined' size='large' onClick={handleNew} id="btn4">New Game</Button>
+        </Typography>
+        {/* {lobbyLinkActive ? (<Link to='/Lobby' className={lobbyLinkClass} >Go To Lobby!</Link>) : <Link to='/' className={lobbyLinkClass} >Full Lobby!</Link>}
+        <br/>
+        <Link to="/Library">Card Library</Link> */}
+      </div>
     </div>
   );
 }

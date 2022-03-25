@@ -24,8 +24,8 @@ export default function TransferList({cards, socket}) {
 // might break something rn!
   return (
 
-    <Stack spacing ={2}>
-    <ImageList sx={{ width: 500, height: 450 }} style={border}>
+    <Stack spacing ={5} direction='row' id="lib-and-deck">
+    <ImageList sx={{ width: 500, height: 500, justifyItems: 'center'}} style={border}>
       <ImageListItem key="Subheader" cols={2} >
         <ListSubheader component="div">Library</ListSubheader>
       </ImageListItem>
@@ -50,7 +50,7 @@ export default function TransferList({cards, socket}) {
       </ImageListItem>
       ))}
   </ImageList>
-  <ImageList sx={{ width: 500, height: 450 }} style={border}>
+  <ImageList sx={{ width: 500, height: 500, justifyItems: 'center' }} style={border}>
       <ImageListItem key="Subheader" cols={2}>
         <ListSubheader component="div">Deck</ListSubheader>
       </ImageListItem >
