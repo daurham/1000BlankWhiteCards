@@ -4,6 +4,8 @@ import Carousels from './Carousels.jsx';
 import Card from './FunctionalCard';
 import GlobalCard from '../Card';
 import { useData } from '../../UseContext';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 const Container = styled.div`
   display: flex;
@@ -20,9 +22,10 @@ const Background = styled.div`
   [last-line];
   height: 50rem;
   width: 50rem;
-  background-color: gray;
+  background-color: rgba(101, 103, 109, 0.2);
   position: relative;
-  border: 0.1rem solid black;
+  border: 0.1rem solid rgba(101, 103, 109, 0.5);
+  border-radius: 5px;
 `;
 
 const InnerContainer= styled.div`
@@ -48,27 +51,29 @@ const Board = styled.div`
   [row3-end row4-start] 1fr
   [row4-end row5-start] 1fr
   [last-line];
-  border: 0.1rem solid black;
+  border: 0.1rem solid rgba(101, 103, 109, 0.5);
+  border-radius: 5px;
   background:
     linear-gradient(to top left,
       rgba(0,0,0,0) 0%,
       rgba(0,0,0,0) calc(50% - 0.8px),
-      rgba(0,0,0,1) 50%,
+      rgba(101, 103, 109, 0.5) 50%,
       rgba(0,0,0,0) calc(50% + 0.8px),
       rgba(0,0,0,0) 100%),
     linear-gradient(to top right,
       rgba(0,0,0,0) 0%,
       rgba(0,0,0,0) calc(50% - 0.8px),
-      rgba(0,0,0,1) 50%,
+      rgba(101, 103, 109, 0.5) 50%,
       rgba(0,0,0,0) calc(50% + 0.8px),
       rgba(0,0,0,0) 100%),
-    white;
+    rgba(255, 255, 255, 0.5);
 `;
 
 const Top = styled.div`
   grid-column: 3 / 4;
   grid-row: 1;
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -76,6 +81,7 @@ const Bottom = styled.div`
   grid-column: 3 / 4;
   grid-row: 5;
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -83,6 +89,7 @@ const Left = styled.div`
   grid-column: 1 / 2;
   grid-row: 3;
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
@@ -90,20 +97,22 @@ const Right = styled.div`
   grid-column: 5 / 6;
   grid-row: 3;
   display: flex;
+  flex-direction: column;
   align-items: center;
 `;
 
 const Innerboard = styled.div`
   grid-column: 2 / 5;
   grid-row: 2 / 5;
-  background-color: white;
+  background-color: rgba(2, 136, 209, 0.2);
   height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  border: 0.1rem solid black;
+  border: 0.1rem solid rgba(2, 136, 209, 0.5);
+  border-radius: 5px;
 `;
 
 const Cards = styled.div`
@@ -114,9 +123,11 @@ const Cards = styled.div`
 `;
 
 const Deck = styled.div`
+  background-image: url("../../../../dist/image/drawful.jpg");
   background-color: gray;
   height: 15rem;
   width: 45%;
+  z-index: 100
 `;
 
 const Center = styled.div`
@@ -127,19 +138,50 @@ const Center = styled.div`
   width: 45%;
 `;
 
-const Button = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 15rem;
-  background-color: white;
-`;
+// const Button = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   width: 15rem;
+//   background-color: white;
+// `;
 
 export default function GameBoard() {
 
 //   const dummyCardData = useData();
 // const card = dummyCardData.cards;
 
+// original code below this
 const { cards, socket, players, userName } = useData();
+// if(!players.length){
+//   return null;
+// }
+
+// new code in between here
+
+// const { cards, socket, userName } = useData();
+// const [players, setPlayers] = useState([]);
+
+// useEffect(() => {
+//   const playersListener = (playerList) => {
+//     console.log("player-list", playerList);
+//     setPlayers(playerList);
+//   };
+
+
+//   socket.on('player-list', playersListener);
+//   socket.on('newPlayer', playersListener);
+//   return () => {
+//     socket.off('player-list', playersListener);
+//     socket.off('newPlayer', playersListener);
+//   };
+// }, [players])
+
+// useEffect(() => socket.emit('get-players'), []);
+
+
+// new code ends here
+
+
 const playerOrder = players.filter(player => player.name !== userName);
 
 useEffect(() => socket.emit('get-players'),[]);
@@ -189,6 +231,8 @@ const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
  }
 
   return (
+    <div>
+    <Typography variant='h6'>
     <Container>
       <Background>
         <InnerContainer>
@@ -213,8 +257,8 @@ const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
                 <Carousels cards={center} player={false}/>
                 </Center>
               </Cards>
-              <Button>
-                <button type="submit" onClick={handleDraw}>Draw</button>
+              <Button variant='outlined' size='large' id="draw-btn" onClick={handleDraw}>
+                Draw
               </Button>
             </Innerboard>
 
@@ -236,5 +280,7 @@ const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
           </Hand>
       </Background>
     </Container>
+    </Typography>
+    </div>
   );
 };

@@ -8,6 +8,10 @@ import axios from 'axios';
 import { useData } from '../UseContext';
 import styled from 'styled-components';
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`;
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -82,7 +86,7 @@ export default function BasicModal() {
       .then((res) => {
         const { data: imageData } = res;
         setPhoto(() => imageData.url);
-        console.log(imageData.url);
+        // console.log(imageData.url);
         const date = new Date();
         const newDate = date.toISOString();
         socket.emit('add-cards', [
@@ -104,18 +108,6 @@ export default function BasicModal() {
       .catch((err) => console.log(err));
 
   }
-
-
-  // useEffect(() => {
-  //   // const playersListener = (playerList) => {
-  //   //   console.log("player-list", playerList);
-  //   //   setPlayers(playerList);
-  //   //   setCounter(playerList.length)
-  //   // };
-
-  //   socket.on('player-list', playersListener);
-  //   return () => socket.off('player-list', playersListener);
-  // }, [players]);
 
   return !cards || !players ? null : (
     <div>
@@ -222,12 +214,16 @@ export default function BasicModal() {
             </Box>
           </Modal>
         </div>
-          <div className="lobby-start">
-            <Button href="/Game" variant='outlined' size='large' id="start-btn">Start Game</Button>
-          </div>
-          <div className="lobby-exit">
+        <div className="lobby-start">
+          <StyledLink to="/Game">
+            <Button variant='outlined' size='large' id="start-btn">Start Game</Button>
+          </StyledLink>
+        </div>
+        <div className="lobby-exit">
+          <StyledLink to="/">
             <Button href="/" variant='outlined' size='large' id="exit-btn">Exit</Button>
-          </div>
+          </StyledLink>
+        </div>
       </div>
     </div>
   );

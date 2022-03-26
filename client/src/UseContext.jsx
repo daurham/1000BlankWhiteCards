@@ -13,32 +13,27 @@ export function useData() {
 }
 
 export default function Context() {
-  const [positions, setPositions] = useState();
   const [cards, setCards] = useState();
   const [sort, setSort] = useState();
-  const [fullLobby, setFullLobby] = useState(false);
   const [userName, setUserName] = useLocalStorageState('userName');
   const [players, setPlayers] = useState([]);
-  const [ counter, setCounter ] = useState(0); // counts each player in the game
 
   // subscribe to card-list messages from game server
   useEffect(() => {
     const cardListListener = (newCards) => {
-      console.log("card-list", newCards);
+      // console.log("card-list", newCards);
       setCards(newCards);
     };
 
     socket.on('card-list', cardListListener);
     return () => socket.off('card-list', cardListListener);
-
   }, [])
 
 
   useEffect(() => {
     const playersListener = (playerList) => {
-      console.log("player-list", playerList);
+      // console.log("player-list", playerList);
       setPlayers(playerList);
-      setCounter(playerList.length)
     };
 
 
@@ -56,13 +51,13 @@ export default function Context() {
   // ask for a players update
   useEffect(() => socket.emit('get-players'),[]);
 
-  console.log('UseContext Players: ', players);
+  // console.log('UseContext Players: ', players);
   // console.log('UseContext: ', );
   // console.log('UseContext: ', );
 
   const value = useMemo(() => ({
-    positions, setPositions, cards, setCards, socket, sort, setSort, fullLobby, setUserName, userName, players, setPlayers, counter, setCounter
-  }), [positions, cards, sort, userName, players, counter]);
+    cards, setCards, socket, sort, setSort, setUserName, userName, players, setPlayers,
+  }), [cards, sort, userName, players]);
 
   return !cards || !players ? null : (
     <DataContext.Provider value={value}>
