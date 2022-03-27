@@ -17,17 +17,13 @@ const MyComponent = (props) => {
   for (let card of cards) {
 
     card.handleClick = ({ id, position }) => {
-      // console.log(`card id: ${id}; position x: ${position.x} y: ${position.y}`);
 
       //main player
       if (bottom) {
-        //if elem is truthy, grab its global position
         let rect = bottom.getBoundingClientRect();
-        // console.log('left:',rect.left,'right:', rect.right, 'position.x: ', position.x, 'top:', rect.top,'bottom:', rect.bottom, 'positon.y: ', position.y)
 
         if (position.x > rect.left && position.x < rect.right && position.y > rect.top && position.y < rect.bottom) {
           props.handleChange(card, props.player)
-          // console.log('Move to player')
         }
       }
 

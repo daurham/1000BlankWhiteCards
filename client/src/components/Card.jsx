@@ -20,7 +20,7 @@ export default function MediaCard({ card }) {
         </Typography>
         <Typography variant="body2" color="text.secondary" component={'p'}>
           {card.tags ? (card.tags.split(',')).map((tag) =>
-          `#${tag.trim()}`) : null}
+            `#${tag.trim()}`) : null}
         </Typography>
         <Typography variant="body2" color="text.secondary" component={'p'}>
           {card.createdBy ? card.createdBy : 'no creator'}

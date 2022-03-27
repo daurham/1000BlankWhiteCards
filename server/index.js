@@ -12,8 +12,8 @@ app.use('/Library', express.static('./client/dist'));
 app.use('/Game', express.static('./client/dist'));
 
 app.post('/add', (req, res) => {
-  const card = {...req.body}
-  const cardArray=[card.createdBy, card.dateCreated, card.cardRules, card.points, card.image, card.tags ]
+  const card = { ...req.body }
+  const cardArray = [card.createdBy, card.dateCreated, card.cardRules, card.points, card.image, card.tags]
   let q = 'INSERT INTO cards (createdBy, dateCreated, cardRules, points, image, tags) values (?, ?, ?, ?, ?, ?)';
   db.query(q, cardArray, (err, result) => {
     if (err) res.sendStatus(500)
@@ -28,7 +28,5 @@ app.get('/get', (req, res) => {
     res.status(200).send(result);
   })
 });
-
-
 
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));

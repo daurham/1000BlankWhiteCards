@@ -7,7 +7,7 @@ import { Typography, Button, Stack } from '@mui/material';
 import styled from 'styled-components';
 
 const StyledLink = styled(Link)`
-    text-decoration: none;
+  text-decoration: none;
 `;
 
 export default function Library() {

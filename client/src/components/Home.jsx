@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 
 const StyledLink = styled(Link)`
-    text-decoration: none;
+  text-decoration: none;
 `;
 
 export default function Home() {
@@ -20,8 +20,6 @@ export default function Home() {
     setUserName(userNameInput);
     socket.emit('add-player', userNameInput)
   };
-
-  // socket.on('player-list', (players) => {});
 
   const handleUserName = (e) => {
     setUserNameInput(e.target.value);
