@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from "styled-components";
-import Stack from '@mui/material/Stack';
+import { Stack, Typography } from '@mui/material/';
 import { useData } from '../../UseContext';
-import Typography from '@mui/material/Typography';
 import Rule from './Rule.jsx'
 
 export default function TurnTracker() {
   const { players } = useData();
-  return(
+  return (
     <Typography>
       <Stack spacing={5} direction='row'>
         <select name='usertracker' id='usertracker'>

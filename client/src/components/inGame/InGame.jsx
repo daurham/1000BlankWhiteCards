@@ -1,17 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Board from './Board.jsx';
 import Rule from './Rule.jsx';
 import TurnTracker from './TurnTracker.jsx';
-import Typography from '@mui/material/Typography';
+import {Modal, Box, Typography} from '@mui/material';
 
 export default function InGame() {
+
+
   return (
     <div>
-      <Typography variant='h1' id='boardTitle'>
-        Game Board
-      </Typography>
       <div id='ingamebtns'>
-      <TurnTracker />
+        <TurnTracker />
       </div>
       <Board />
     </div>

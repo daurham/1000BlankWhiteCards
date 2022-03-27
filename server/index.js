@@ -2,7 +2,7 @@ const express = require('express');
 const axios = require('axios');
 const controller = require('./controller');
 const app = express();
-const PORT = 3000;
+const PORT = 4000;
 const db = require('./db');
 
 app.use(express.urlencoded({ extended: true }))

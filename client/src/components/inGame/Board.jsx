@@ -1,55 +1,64 @@
 import React, { useContext, useState, useEffect } from 'react';
 import styled from "styled-components";
 import Carousels from './Carousels.jsx';
-import Card from './FunctionalCard';
+// import Card from './FunctionalCard';
 import GlobalCard from '../Card';
 import { useData } from '../../UseContext';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import {Typography, Button} from '@mui/material';
+import CardHand from './CardHand';
 
 const Container = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-const Background = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-  grid-template-rows: [row1-start] 1fr
-  [row1-end row2-start] 5fr
-  [row2-end row3-start] 1fr
-  [last-line];
-  height: 50rem;
-  width: 50rem;
-  background-color: rgba(101, 103, 109, 0.2);
-  position: relative;
-  border: 0.1rem solid rgba(101, 103, 109, 0.5);
-  border-radius: 5px;
-`;
+// const Background = styled.div`
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+//   grid-template-rows: [row1-start] 1fr
+//   [row1-end row2-start] 5fr
+//   [row2-end row3-start] 1fr
+//   [last-line];
+//   height: 1100px;
+//   width: 1100px;
+//   background-color: rgba(101, 103, 109, 0.2);
+//   position: relative;
+//   border: 0.1rem solid rgba(101, 103, 109, 0.5);
+//   border-radius: 5px;
+//   margin-bottom: 10%;
+// `;
 
-const InnerContainer= styled.div`
-  grid-column: 2 / 7;
-  grid-row: 2;
-`;
+// const InnerContainer= styled.div`
+//   grid-column: 2 / 7;
+//   grid-row: 2;
+// `;
 
 const Hand= styled.div`
-  grid-column: 4 / 5;
-  grid-row: 3;
+  // grid-column: 4 / 5;
+  // grid-row: 3;
   display: flex;
-  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  // align-items: end;
 `;
 
 const Board = styled.div`
-  height: 100%;
-  width: 100%;
+  height: 1000px;
+  width: 1000px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: [row1-start] 1fr
   [row1-end row2-start] 1fr
   [row2-end row3-start] 1fr
   [row3-end row4-start] 1fr
   [row4-end row5-start] 1fr
+  [row5-end row6-start] 1fr
+  [row6-end row7-start] 1fr
+  [row7-end row8-start] 1fr
+  [row8-end row9-start] 1fr
   [last-line];
   border: 0.1rem solid rgba(101, 103, 109, 0.5);
   border-radius: 5px;
@@ -66,44 +75,44 @@ const Board = styled.div`
       rgba(101, 103, 109, 0.5) 50%,
       rgba(0,0,0,0) calc(50% + 0.8px),
       rgba(0,0,0,0) 100%),
-    rgba(255, 255, 255, 0.5);
+      rgba(101, 103, 109, 0.2);
 `;
 
 const Top = styled.div`
-  grid-column: 3 / 4;
-  grid-row: 1;
+  grid-column: 4 / 7;
+  grid-row: 1 / 4;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Bottom = styled.div`
-  grid-column: 3 / 4;
-  grid-row: 5;
+  grid-column: 4 / 7;
+  grid-row: 7 / 10;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Left = styled.div`
-  grid-column: 1 / 2;
-  grid-row: 3;
+  grid-column: 1 / 4;
+  grid-row: 4 / 7;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Right = styled.div`
-  grid-column: 5 / 6;
-  grid-row: 3;
+  grid-column: 7 / 10;
+  grid-row: 4 / 7;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 const Innerboard = styled.div`
-  grid-column: 2 / 5;
-  grid-row: 2 / 5;
+  grid-column: 4 / 7;
+  grid-row: 4 / 7;
   background-color: rgba(2, 136, 209, 0.2);
   height: 100%;
   width: 100%;
@@ -123,19 +132,19 @@ const Cards = styled.div`
 `;
 
 const Deck = styled.div`
-  background-image: url("../../../../dist/image/drawful.jpg");
-  background-color: gray;
   height: 15rem;
-  width: 45%;
-  z-index: 100
+  width: 30%;
+  display: flex;
+  align-items: center;
 `;
 
 const Center = styled.div`
-  background-color: gray;
+  // background-color: rgba(101, 103, 109, 0.2);
+  // border: 0.1rem solid rgba(101, 103, 109, 0.5);
   display: flex;
   align-items: center;
   height: 15rem;
-  width: 45%;
+  width: 60%;
 `;
 
 // const Button = styled.div`
@@ -186,21 +195,42 @@ const playerOrder = players.filter(player => player.name !== userName);
 
 useEffect(() => socket.emit('get-players'),[]);
 socket.on('player-list', (players) => {
-  console.log('global socket on board: ',players);
+  // console.log('global socket on board: ',players);
 });
 // console.log('userName: ', userName);
 // console.log('cards: ', cards);
-console.log('Board, players: ', players);
-console.log('Board, socket: ', socket);
+// console.log('Board, players: ', players);
+// console.log('Board, socket: ', socket);
 // console.log('playerOrder: ', playerOrder);
 
 const deck = cards.filter(card => card.position === 'deck');
-const center = cards.filter(card => card.position === 'center');
+const centerSpot = cards.filter(card => card.position === 'center');
 const playerOne = cards.filter(card => card.position === userName)
 const playerTwo = cards.filter(card => card.position === playerOrder[0].name)
 const playerThree = cards.filter(card => card.position === playerOrder[1].name)
 const playerFour = cards.filter(card => card.position === playerOrder[2].name)
 const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
+
+    const [bottom, setBottom] = useState(false);
+    const [left, setLeft] = useState(false);
+    const [top, setTop] = useState(false);
+    const [right, setRight] = useState(false);
+    const [center, setCenter] = useState(false);
+
+    // document.getElementById("bottom").addEventListener("mouseenter", function(  ) {bottom=true;});
+    // document.getElementById("bottom").addEventListener("mouseout", function(  ) {bottom=false;});
+
+    // document.getElementById("left").addEventListener("mouseenter", function(  ) {left=true;});
+    // document.getElementById("left").addEventListener("mouseout", function(  ) {left=false;});
+
+    // document.getElementById("right").addEventListener("mouseenter", function(  ) {right=true;});
+    // document.getElementById("right").addEventListener("mouseout", function(  ) {right=false;});
+
+    // document.getElementById("top").addEventListener("mouseenter", function(  ) {top=true;});
+    // document.getElementById("top").addEventListener("mouseout", function(  ) {top=false;});
+
+    // document.getElementById("center").addEventListener("mouseenter", function(  ) {center=true;});
+    // document.getElementById("center").addEventListener("mouseout", function(  ) {center=false;});
 
 //const [playerState, setPlayerState] = useState({Global: []})
 //const [playerDeck, setPlayerDeck] = useState([]);
@@ -234,51 +264,55 @@ const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
     <div>
     <Typography variant='h6'>
     <Container>
-      <Background>
-        <InnerContainer>
+      {/* <Background> */}
+        {/* <InnerContainer> */}
           <Board>
 
-            <Top>
+            <Top id={'top'} onMouseEnter={() => {setTop(true)}} onMouseLeave={() => {setTop(false)}}>
               {playerOrder[1].name}
               <Carousels cards={playerThree} isPlayer={false}/>
             </Top>
 
-            <Left>
+            <Left id="left" onMouseEnter={() => {setLeft(true)}} onMouseLeave={() => {setLeft(false)}}>
               {playerOrder[0].name}
               <Carousels cards={playerTwo} isPlayer={false}/>
             </Left>
 
             <Innerboard>
               <Cards>
-                <Deck>Deck
-                  <Carousels cards={deck} player={false}/>
+                <Deck>
+                  {deck.length > 0 ? <img src="./image/drawful.jpg" style={{width: '100%', height: 'auto', borderRadius: '10px'}}/> : null}
+                  {/* <div style={}>
+                    <Carousels sx={{display:'hidden', height:'1px'}} cards={deck} player={false}/>
+                  </div> */}
                 </Deck>
-                <Center>
-                <Carousels cards={center} player={false}/>
+                <Center id='center' onMouseEnter={() => {setCenter(true)}} onMouseLeave={() => {setCenter(false)}}>
+                <Carousels cards={centerSpot} player={false} />
                 </Center>
               </Cards>
-              <Button variant='outlined' size='large' id="draw-btn" onClick={handleDraw}>
+              <Button variant='outlined' size='large' id="draw-btn" onClick={handleDraw} disabled={deck.length <= 0}>
                 Draw
               </Button>
             </Innerboard>
 
-            <Right>
+            <Right id={'right'} onMouseEnter={() => {setRight(true)}} onMouseLeave={() => {setRight(false)}}>
               {playerOrder[2].name}
               <Carousels cards={playerFour} isPlayer={false}/>
             </Right>
 
-            <Bottom>
+            <Bottom id={'bottom'} onMouseEnter={() => {setBottom(true)}} onMouseLeave={() => {setBottom(false)}}>
               <Carousels cards={playerOne} isPlayer={false}/>
+              {/* <Hand cards={playerOne} height={500} /> */}
             </Bottom>
 
           </Board>
-         </InnerContainer>
+         {/* </InnerContainer> */}
 
           <Hand>
-            {userName}
-            <Carousels cards={playerDeck} isPlayer={true} player={userName} handleChange={handleChange} players={playerOrder}/>
+            {/* <Carousels cards={playerDeck} isPlayer={true} player={userName} handleChange={handleChange} players={playerOrder}/> */}
+            <CardHand cards={playerDeck} height={100} handleChange={handleChange} player={userName} players={playerOrder} bottom={bottom} left={left} top={top} right={right} center={center}/>
           </Hand>
-      </Background>
+      {/* </Background> */}
     </Container>
     </Typography>
     </div>
