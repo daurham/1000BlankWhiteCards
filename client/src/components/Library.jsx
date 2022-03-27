@@ -28,8 +28,8 @@ export default function Library() {
   return (
     <div id='library'>
       <Typography variant='h1' id='libraryitle'>Card Library</Typography>
-      <Typography>
-        <Stack spacing={5} direction='row' className='library'>
+      <Typography component={'div'}>
+        <Stack spacing={5} direction='row' className='library' component={'div'}>
           <select name='cardsort' id='cardsort' onChange={handleSort}>
             <option value='oldest' >Oldest</option>
             <option value='newest' >Newest</option>

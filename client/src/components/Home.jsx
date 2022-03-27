@@ -43,19 +43,19 @@ export default function Home() {
             id="outlined-required" size='large' />
           <Button type='submit' variant='outlined' size='large' id="btn1" value='Set Nickname'>Submit</Button>
         </form>
-        <Typography>
+        <Typography component={'span'}>
           <Stack spacing={2} direction='row' className='link' >
             {lobbyLinkActive ?
-              <StyledLink to='/Lobby' className={lobbyLinkClass} >
+              (<StyledLink to='/Lobby' className={lobbyLinkClass} >
                 <Button variant='outlined' size='large' className={lobbyLinkClass} id="btn2">
                   Go To Lobby
                 </Button>
-              </StyledLink> :
-              <Link to='/' className={lobbyLinkClass} >
+              </StyledLink>) :
+              (<Link to='/' className={lobbyLinkClass} >
                 <Button variant='outlined' size='large' className={lobbyLinkClass} id="btn2">
                   Full Lobby
                 </Button>
-              </Link>
+              </Link>)
             }
             <StyledLink to="/Library">
               <Button variant='outlined' size='large' id="btn3">

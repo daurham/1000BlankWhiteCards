@@ -35,8 +35,8 @@ export default function Carousels(props) {
 
   return !props.cards ? null : (
     <Carousel interval={null}>
-      {props.cards.map((item) =>
-        <Carousel.Item>
+      {props.cards.map((item, index) =>
+        <Carousel.Item key={index}>
           <img
             id="carousel-img"
             src={item.image}
@@ -77,8 +77,8 @@ export default function Carousels(props) {
                   onChange={(e) => (setDeck(e.target.value))}
                 >
                   <MenuItem value={props.player}>{props.player}</MenuItem>
-                  {props.players.map((player) => (
-                    <MenuItem value={player.name}>{player.name}</MenuItem>
+                  {props.players.map((player, index) => (
+                    <MenuItem key={index} value={player.name}>{player.name}</MenuItem>
                   ))}
                   <MenuItem value={'center'}>Global</MenuItem>
                 </Select>

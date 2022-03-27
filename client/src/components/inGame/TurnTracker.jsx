@@ -7,7 +7,7 @@ import Rule from './Rule.jsx'
 export default function TurnTracker() {
   const { players } = useData();
   return (
-    <Typography>
+    <Typography component={'span'}>
       <Stack spacing={5} direction='row'>
         <select name='usertracker' id='usertracker'>
           <option>User Tracker</option>

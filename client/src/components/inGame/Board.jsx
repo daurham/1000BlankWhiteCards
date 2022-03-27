@@ -286,9 +286,11 @@ const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
                     <Carousels sx={{display:'hidden', height:'1px'}} cards={deck} player={false}/>
                   </div> */}
                 </Deck>
+
                 <Center id='center' onMouseEnter={() => {setCenter(true)}} onMouseLeave={() => {setCenter(false)}}>
                 <Carousels cards={centerSpot} player={false} />
                 </Center>
+
               </Cards>
               <Button variant='outlined' size='large' id="draw-btn" onClick={handleDraw} disabled={deck.length <= 0}>
                 Draw
@@ -310,7 +312,7 @@ const playerDeck = cards.filter(card => card.position === `${userName}Hand`)
 
           <Hand>
             {/* <Carousels cards={playerDeck} isPlayer={true} player={userName} handleChange={handleChange} players={playerOrder}/> */}
-            <CardHand cards={playerDeck} height={100} handleChange={handleChange} player={userName} players={playerOrder} bottom={bottom} left={left} top={top} right={right} center={center}/>
+            <CardHand cards={playerDeck} height={100} handleChange={handleChange} player={userName} players={playerOrder}/>
           </Hand>
       {/* </Background> */}
     </Container>

@@ -216,7 +216,7 @@ export default function BasicModal() {
         </div>
         <div className="lobby-exit">
           <StyledLink to="/">
-            <Button href="/" variant='outlined' size='large' id="exit-btn">Exit</Button>
+            <Button variant='outlined' size='large' id="exit-btn">Exit</Button>
           </StyledLink>
         </div>
       </div>
