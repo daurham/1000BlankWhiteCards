@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { useData } from '../UseContext';
-import axios from 'axios';
-import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
+import { Typography, Stack, Button, TextField } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import styled from 'styled-components';
 
 const StyledLink = styled(Link)`
-    text-decoration: none;
+  text-decoration: none;
 `;
 
 export default function Home() {
   const [userNameInput, setUserNameInput] = useState('');
   const { userName, setUserName, socket, players, setPlayers } = useData();
-
   const lobbyLinkActive = players.length <= 4;
   const lobbyLinkClass = lobbyLinkActive ? "" : "disabled";
 
@@ -24,21 +19,16 @@ export default function Home() {
     e.preventDefault()
     setUserName(userNameInput);
     socket.emit('add-player', userNameInput)
-  }
-
-  socket.on('player-list', (players) => {
-    // console.log('global socket on home: ',players);
-  });
+  };
 
   const handleUserName = (e) => {
     setUserNameInput(e.target.value);
-  }
+  };
 
   const handleNew = (e) => {
     e.preventDefault()
-    // console.log('start a new game')
     socket.emit('end-game');
-  }
+  };
 
   return (
     <div id='home'>
@@ -51,19 +41,19 @@ export default function Home() {
             id="outlined-required" size='large' />
           <Button type='submit' variant='outlined' size='large' id="btn1" value='Set Nickname'>Submit</Button>
         </form>
-        <Typography>
+        <Typography component={'span'}>
           <Stack spacing={2} direction='row' className='link' >
             {lobbyLinkActive ?
-              <StyledLink to='/Lobby' className={lobbyLinkClass} >
+              (<StyledLink to='/Lobby' className={lobbyLinkClass} >
                 <Button variant='outlined' size='large' className={lobbyLinkClass} id="btn2">
                   Go To Lobby
                 </Button>
-              </StyledLink> :
-              <Link to='/' className={lobbyLinkClass} >
+              </StyledLink>) :
+              (<Link to='/' className={lobbyLinkClass} >
                 <Button variant='outlined' size='large' className={lobbyLinkClass} id="btn2">
                   Full Lobby
                 </Button>
-              </Link>
+              </Link>)
             }
             <StyledLink to="/Library">
               <Button variant='outlined' size='large' id="btn3">
@@ -75,9 +65,6 @@ export default function Home() {
         <Typography className='gamebtn'>
           <Button variant='outlined' size='large' onClick={handleNew} id="btn4">New Game</Button>
         </Typography>
-        {/* {lobbyLinkActive ? (<Link to='/Lobby' className={lobbyLinkClass} >Go To Lobby!</Link>) : <Link to='/' className={lobbyLinkClass} >Full Lobby!</Link>}
-        <br/>
-        <Link to="/Library">Card Library</Link> */}
       </div>
     </div>
   );

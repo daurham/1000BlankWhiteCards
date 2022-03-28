@@ -24,10 +24,7 @@ const style = {
   p: 4,
 };
 
-// const socket = io('http://localhost:8080');
-
 export default function BasicModal() {
-  // States
   const [user, setUser] = useState('');
   const [points, setPoints] = useState(0);
   const [description, setDescription] = useState('');
@@ -43,32 +40,31 @@ export default function BasicModal() {
   const canJoin = () => players.length === 4;
   let hasEnoughPlayers = canJoin();
 
-  //functions
   const handleCanvasOpen = () => setCanvasOpen(true);
   const handleCanvasClose = () => setCanvasOpen(false);
   const handleDeckOpen = () => setDeckOpen(true);
   const handleDeckClose = () => setDeckOpen(false);
-  // edit this one to be like handle selected color
+
   const handleUser = (e) => {
     setUser(e.target.value);
-  }
+  };
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
-  }
+  };
   const handlePoints = (e) => {
     setPoints(Number(e.target.value));
-  }
+  };
   const handleDescription = (e) => {
     setDescription(e.target.value);
-  }
+  };
   const handleTags = (e) => {
     setTags(e.target.value);
-  }
+  };
 
   const handleClear = (e) => {
     e.preventDefault
     canvasDraw.current.clear();
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -77,7 +73,6 @@ export default function BasicModal() {
     data.append('file', url);
     data.append('upload_preset', 'catwalk');
     data.append('cloud_name', 'dgdqzfkbf');
-
     axios({
       method: 'post',
       url: 'https://api.cloudinary.com/v1_1/dgdqzfkbf/image/upload',
@@ -86,7 +81,6 @@ export default function BasicModal() {
       .then((res) => {
         const { data: imageData } = res;
         setPhoto(() => imageData.url);
-        // console.log(imageData.url);
         const date = new Date();
         const newDate = date.toISOString();
         socket.emit('add-cards', [
@@ -106,9 +100,9 @@ export default function BasicModal() {
         setTags(() => '');
       })
       .catch((err) => console.log(err));
+  };
 
-  }
-  useEffect(() => hasEnoughPlayers = canJoin(), [players])
+  useEffect(() => hasEnoughPlayers = canJoin(), [players]);
 
   return !cards || !players ? null : (
     <div id='lobby'>
@@ -222,7 +216,7 @@ export default function BasicModal() {
         </div>
         <div className="lobby-exit">
           <StyledLink to="/">
-            <Button href="/" variant='outlined' size='large' id="exit-btn">Exit</Button>
+            <Button variant='outlined' size='large' id="exit-btn">Exit</Button>
           </StyledLink>
         </div>
       </div>

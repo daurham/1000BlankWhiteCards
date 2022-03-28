@@ -1,15 +1,13 @@
-import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Home from './Home.jsx';
 import Cards from './Cards.jsx';
 import { useData } from '../UseContext';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import { Typography, Button, Stack } from '@mui/material';
 import styled from 'styled-components';
 
 const StyledLink = styled(Link)`
-    text-decoration: none;
+  text-decoration: none;
 `;
 
 export default function Library() {
@@ -17,7 +15,7 @@ export default function Library() {
 
   const handleSort = (e) => {
     setSort(e.target.value);
-  }
+  };
 
   const container = {
     display: 'flex',
@@ -25,13 +23,13 @@ export default function Library() {
     overflowY: 'scroll',
     height: '80vh',
     width: 'fitContent'
-  }
+  };
 
   return (
     <div id='library'>
       <Typography variant='h1' id='libraryitle'>Card Library</Typography>
-      <Typography>
-        <Stack spacing={5} direction='row' className='library'>
+      <Typography component={'div'}>
+        <Stack spacing={5} direction='row' className='library' component={'div'}>
           <select name='cardsort' id='cardsort' onChange={handleSort}>
             <option value='oldest' >Oldest</option>
             <option value='newest' >Newest</option>
@@ -46,6 +44,6 @@ export default function Library() {
         <Cards />
       </div>
     </div>
-  )
+  );
 }
 

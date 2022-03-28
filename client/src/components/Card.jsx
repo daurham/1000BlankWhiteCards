@@ -1,14 +1,9 @@
 import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 
-export default function MediaCard({card}) {
+export default function MediaCard({ card }) {
   return !card ? null : (
-    <Card sx={{ maxWidth: 345, height: 500, marginRight: 5, marginBottom: 5 }}>
+    <Card sx={{ maxWidth: 345, height: 500, marginRight: 5, marginBottom: 5 }} component={'div'}>
       <CardMedia
         component="img"
         height="400"
@@ -16,36 +11,21 @@ export default function MediaCard({card}) {
         image={card.image}
         alt="image of card"
       />
-      <CardContent>
-        {/* <Typography gutterBottom variant="h5" component="div">
-          {card.title}
-        </Typography> */}
-        <Typography gutterBottom variant="h5" component="div">
-          {card.points > 0 ? `+${card.points}` : `${card.points}` }
+      <CardContent component={'div'}>
+        <Typography gutterBottom variant="h5" component={"p"}>
+          {card.points > 0 ? `+${card.points}` : `${card.points}`}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.secondary" component={'p'}>
           {card.cardRules}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          #{card.tags}
+        <Typography variant="body2" color="text.secondary" component={'p'}>
+          {card.tags ? (card.tags.split(',')).map((tag) =>
+            `#${tag.trim()}`) : null}
         </Typography>
-        {/* <Typography variant="body2" color="text.secondary">
-          {card.date}
-        </Typography> */}
+        <Typography variant="body2" color="text.secondary" component={'p'}>
+          {card.createdBy ? card.createdBy : 'no creator'}
+        </Typography>
       </CardContent>
     </Card>
   );
 }
-
-
-// ----------------------------------old code might be trash now ---------------------------
-/*
-  <CardActions>
-    <Button size="small">Share</Button>
-    <Button size="small">Learn More</Button>
-  </CardActions>
-
-  this issue here is being caused by the date being passed into the card
-  because it is a function
-
-*/
