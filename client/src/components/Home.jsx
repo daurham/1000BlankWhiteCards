@@ -4,7 +4,7 @@ import { useData } from '../UseContext';
 
 export default function Home() {
   const [ userNameInput, setUserNameInput ] = useState('');
-  const { userName, setUserName, socket, players, counter, setCounter } = useData();
+  const { userName, setUserName, socket, players, setPlayers counter, setCounter } = useData();
   // const [ counter, setCounter ] = useState(0);
 
   const lobbyLinkActive = !!userName && players.length < 4;
@@ -33,16 +33,15 @@ export default function Home() {
     console.log(players);
   });
 
-  // useEffect(() => {
-  //   const playersListener = (playerList) => {
-  //     console.log("player-list", playerList);
-  //     setPlayers(playerList);
-  //     setCounter(playerList.length)
-  //   };
-
-  //   socket.on('player-list', playersListener);
-  //   return () => socket.off('player-list', playersListener);
-  // }, [players]);
+  useEffect(() => {
+    const playersListener = (playerList) => {
+      console.log("player-list", playerList);
+      setPlayers(playerList);
+      setCounter(playerList.length)
+    };
+    socket.on('player-list', playersListener);
+    return () => socket.off('player-list', playersListener);
+  }, [players]);
 
   const handleUserName = (e) => {
     setUserNameInput(e.target.value);
