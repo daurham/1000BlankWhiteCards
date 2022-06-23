@@ -1,16 +1,23 @@
 import React from 'react';
 import styled from "styled-components";
-import Form from 'react-bootstrap/Form';
+import { Stack, Typography } from '@mui/material/';
 import { useData } from '../../UseContext';
+import Rule from './Rule.jsx'
 
 export default function TurnTracker() {
   const { players } = useData();
-  return(
-    <Form.Select aria-label="Default select example">
-      <option>User Tracker</option>
-      {players.map((player, index) =>
-        <option value={player} key={index}>{player.name}</option>
-      )}
-    </Form.Select>
+  return (
+    <Typography component={'span'}>
+      <Stack spacing={5} direction='row'>
+        <select name='usertracker' id='usertracker'>
+          <option>User Tracker</option>
+          {players.map((player, index) =>
+            <option value={player} key={index}>{player.name}</option>
+          )}
+        </select>
+        <Rule />
+      </Stack>
+    </Typography>
   );
 }
+

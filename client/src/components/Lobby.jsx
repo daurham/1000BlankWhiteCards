@@ -8,6 +8,10 @@ import axios from 'axios';
 import { useData } from '../UseContext';
 import styled from 'styled-components';
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+`;
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -20,10 +24,7 @@ const style = {
   p: 4,
 };
 
-// const socket = io('http://localhost:8080');
-
 export default function BasicModal() {
-  // States
   const [user, setUser] = useState('');
   const [points, setPoints] = useState(0);
   const [description, setDescription] = useState('');
@@ -35,48 +36,43 @@ export default function BasicModal() {
   const [allcards, setAllCards] = useState([]);
   const canvasDraw = useRef();
 
-  const { socket, cards, getCards, players, userName } = useData();
+  const { socket, cards, setCards, players, userName } = useData();
+  const canJoin = () => players.length === 4;
+  let hasEnoughPlayers = canJoin();
 
-  // socket.on('card-list', (cards) => {
-  // console.log(cards);
-  // }
-
-  // functions
   const handleCanvasOpen = () => setCanvasOpen(true);
   const handleCanvasClose = () => setCanvasOpen(false);
   const handleDeckOpen = () => setDeckOpen(true);
   const handleDeckClose = () => setDeckOpen(false);
+
   const handleUser = (e) => {
     setUser(e.target.value);
-  }
+  };
   const handleColorChange = (e) => {
     setSelectedColor(e.target.value);
-  }
+  };
   const handlePoints = (e) => {
     setPoints(Number(e.target.value));
-  }
+  };
   const handleDescription = (e) => {
     setDescription(e.target.value);
-  }
+  };
   const handleTags = (e) => {
     setTags(e.target.value);
-  }
+  };
 
   const handleClear = (e) => {
     e.preventDefault
     canvasDraw.current.clear();
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // make the post to cloudinary
     const url = canvasDraw.current.getDataURL()
-    // console.log('url: ', url);
     const data = new FormData();
     data.append('file', url);
     data.append('upload_preset', 'catwalk');
     data.append('cloud_name', 'dgdqzfkbf');
-
     axios({
       method: 'post',
       url: 'https://api.cloudinary.com/v1_1/dgdqzfkbf/image/upload',
@@ -85,7 +81,6 @@ export default function BasicModal() {
       .then((res) => {
         const { data: imageData } = res;
         setPhoto(() => imageData.url);
-        console.log(imageData.url);
         const date = new Date();
         const newDate = date.toISOString();
         socket.emit('add-cards', [
@@ -104,39 +99,23 @@ export default function BasicModal() {
         setPoints(() => '');
         setTags(() => '');
       })
-      // .then(() => {
-      //   canvasDraw.current.clear();
-      //   setTags(() => '');
-      //   setDescription(() => '');
-      //   setPoints(() => '');
-      //   setTags(() => '');
-      // })
       .catch((err) => console.log(err));
+  };
 
-  }
+  useEffect(() => hasEnoughPlayers = canJoin(), [players]);
 
-
-  // useEffect(() => {
-  //   // const playersListener = (playerList) => {
-  //   //   console.log("player-list", playerList);
-  //   //   setPlayers(playerList);
-  //   //   setCounter(playerList.length)
-  //   // };
-
-  //   socket.on('player-list', playersListener);
-  //   return () => socket.off('player-list', playersListener);
-  // }, [players]);
-
-  return (
-    <div>
-      <h1>Lobby</h1>
-      <div>
-        <h4>Players</h4>
+  return !cards || !players ? null : (
+    <div id='lobby'>
+      <Typography variant='h1' id="lobby-title">LOBBY</Typography>
+      <div className="lobby-players">
+        <Typography variant='h2' id="lobby-players-title">PLAYERS</Typography>
         {players.map((player, index) => (
-          <div key={index}> Player {index + 1}: {player.name} </div>
+          <Typography variant="subtitle1" key={index} id="lobby-player-name">{player.name.toUpperCase()}</Typography>
         ))}
       </div>
-      <Button onClick={handleCanvasOpen}>Add A Card!</Button>
+      <div className="lobby-add-btn">
+        <Button variant='outlined' size='large' id="add-btn" onClick={handleCanvasOpen}>Add A Card</Button>
+      </div>
       <Modal
         open={openCanvas}
         onClose={handleCanvasClose}
@@ -174,7 +153,23 @@ export default function BasicModal() {
                   <MenuItem value={'pink'}>Pink</MenuItem>
                 </Select>
               </FormControl>
-              <TextField id="outlined-basic" label="User" variant="outlined" value={userName} onChange={handleUser} />
+              <FormControl >
+                <InputLabel id="demo-simple-select-label">User</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={user}
+                  label="User"
+                  onChange={handleUser}
+                >
+                  {players.map((player, index) =>
+                    <MenuItem value={player.name} key={index}>
+                      {player.name}
+                    </MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+
               <TextField id="outlined-basic" label="Points" variant="outlined" value={points} type="number" onChange={handlePoints} />
               <TextField
                 id="outlined-multiline-static"
@@ -193,8 +188,8 @@ export default function BasicModal() {
       </Modal>
 
       <div>
-        <div>
-          <Button onClick={handleDeckOpen}>Edit Deck</Button>
+        <div className="lobby-edit">
+          <Button variant='outlined' size='large' id="edit-btn" onClick={handleDeckOpen}>Edit Deck</Button>
           <Modal
             open={openDeck}
             onClose={handleDeckClose}
@@ -205,28 +200,25 @@ export default function BasicModal() {
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
           >
-            <Box sx={{
-              position: 'absolute',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: 600,
-              bgcolor: 'background.paper',
-              border: '2px solid #000',
-              boxShadow: 24,
-              p: 4,
-            }}>
+            <Box id="edit-deck-box">
               <Typography id="modal-modal-title" variant="h6" component="h2">
               </Typography>
               <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-
               </Typography>
               <TransferList cards={cards} socket={socket} />
             </Box>
           </Modal>
         </div>
-        <Link to="/Game">START GAME</Link>
-        <br />
-        <Link to="/">Exit</Link>
+        <div className="lobby-start">
+          <StyledLink to={hasEnoughPlayers ? "/Game" : '#'}>
+            <Button variant='outlined' size='large' id="start-btn">Start Game</Button>
+          </StyledLink>
+        </div>
+        <div className="lobby-exit">
+          <StyledLink to="/">
+            <Button variant='outlined' size='large' id="exit-btn">Exit</Button>
+          </StyledLink>
+        </div>
       </div>
     </div>
   );
