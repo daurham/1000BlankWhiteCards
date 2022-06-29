@@ -3,7 +3,7 @@ import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@
 
 export default function MediaCard({ card }) {
   return !card ? null : (
-    <Card sx={{ maxWidth: 345, height: 500, marginRight: 5, marginBottom: 5 }} component={'div'}>
+    <Card sx={{ maxWidth: 345, height: 500, marginRight: 5, marginBottom: 5, border: 'solid' }} component={'div'}>
       <CardMedia
         component="img"
         height="400"

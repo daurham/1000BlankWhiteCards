@@ -21,7 +21,7 @@ export default function Library() {
     display: 'flex',
     flexWrap: 'wrap',
     overflowY: 'scroll',
-    height: '80vh',
+    height: '75vh',
     width: 'fitContent'
   };
 

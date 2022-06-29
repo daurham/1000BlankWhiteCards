@@ -65,8 +65,9 @@ const MyComponent = (props) => {
     }
   }
 
+  // Height represents the distance from a point. Consider it like "margin-top: val"
   return (
-    <Hand height={225} cards={cards} />
+    <Hand height={325} /*width={100} style={{'width': 10, 'position': 'initial'}}*/ cards={cards} />
   )
 }
 

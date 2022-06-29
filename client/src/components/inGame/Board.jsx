@@ -15,18 +15,20 @@ const Container = styled.div`
 
 const Hand = styled.div`
   // grid-column: 4 / 5;
-  // grid-row: 3;
+  grid-row: 1;
   display: flex;
   justify-content: center;
-  height: 50px;
-  width: 50px;
+  // height: 50px;
+  // width: 50px;
   // align-items: end;
 `;
 
 const Board = styled.div`
-  height: 1000px;
-  width: 1000px;
-  display: grid;
+height: 30vw;
+width: 30vw;
+// height: 1000px;
+// width: 1000px;
+display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: [row1-start] 1fr
   [row1-end row2-start] 1fr
@@ -38,15 +40,17 @@ const Board = styled.div`
   [row7-end row8-start] 1fr
   [row8-end row9-start] 1fr
   [last-line];
-  border: 0.1rem solid rgba(101, 103, 109, 0.5);
+  border: 0.1rem solid rgba(101, 103, 109, 99.5);
   border-radius: 5px;
   background:
+    // url('./image/table.png') center/130% rotate(45deg),
+
     linear-gradient(to top left,
-      rgba(0,0,0,0) 0%,
-      rgba(0,0,0,0) calc(50% - 0.8px),
-      rgba(101, 103, 109, 0.5) 50%,
-      rgba(0,0,0,0) calc(50% + 0.8px),
-      rgba(0,0,0,0) 100%),
+    rgba(0,0,0,0) 0%,
+    rgba(0,0,0,0) calc(50% - 0.8px),
+    rgba(101, 103, 109, 0.5) 50%,
+    rgba(0,0,0,0) calc(50% + 0.8px),
+    rgba(0,0,0,0) 100%),
     linear-gradient(to top right,
       rgba(0,0,0,0) 0%,
       rgba(0,0,0,0) calc(50% - 0.8px),
@@ -54,7 +58,43 @@ const Board = styled.div`
       rgba(0,0,0,0) calc(50% + 0.8px),
       rgba(0,0,0,0) 100%),
       rgba(101, 103, 109, 0.2);
+  // transform: rotate(45deg);
+  // background: url('./image/table.png') center/100%;
 `;
+
+
+// const Board = styled.div`
+//   height: 1000px;
+//   width: 1000px;
+//   display: grid;
+//   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+//   grid-template-rows: [row1-start] 1fr
+//   [row1-end row2-start] 1fr
+//   [row2-end row3-start] 1fr
+//   [row3-end row4-start] 1fr
+//   [row4-end row5-start] 1fr
+//   [row5-end row6-start] 1fr
+//   [row6-end row7-start] 1fr
+//   [row7-end row8-start] 1fr
+//   [row8-end row9-start] 1fr
+//   [last-line];
+//   border: 0.1rem solid rgba(101, 103, 109, 0.5);
+//   border-radius: 5px;
+//   background:
+//     linear-gradient(to top left,
+//       rgba(0,0,0,0) 0%,
+//       rgba(0,0,0,0) calc(50% - 0.8px),
+//       rgba(101, 103, 109, 0.5) 50%,
+//       rgba(0,0,0,0) calc(50% + 0.8px),
+//       rgba(0,0,0,0) 100%),
+//     linear-gradient(to top right,
+//       rgba(0,0,0,0) 0%,
+//       rgba(0,0,0,0) calc(50% - 0.8px),
+//       rgba(101, 103, 109, 0.5) 50%,
+//       rgba(0,0,0,0) calc(50% + 0.8px),
+//       rgba(0,0,0,0) 100%),
+//       rgba(101, 103, 109, 0.2);
+// `;
 
 const Top = styled.div`
   grid-column: 4 / 7;
@@ -106,23 +146,30 @@ const Cards = styled.div`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  width: 100%;
+  // width: 100%;
+  // height: 100%;
+  // border: red solid;
 `;
 
 const Deck = styled.div`
-  height: 15rem;
+  height: 9rem;
   width: 30%;
-  display: flex;
+  display: table;
   align-items: center;
 `;
+
+// const DrawButton = styled.button`
+//   height: 1rem;
+// `;
 
 const Center = styled.div`
   // background-color: rgba(101, 103, 109, 0.2);
   // border: 0.1rem solid rgba(101, 103, 109, 0.5);
   display: flex;
   align-items: center;
-  height: 15rem;
+  height: 9rem;
   width: 60%;
+  // border: red solid;
 `;
 
 export default function GameBoard() {
@@ -177,19 +224,28 @@ export default function GameBoard() {
             </Left>
 
             <Innerboard>
+
               <Cards>
-                <Deck>
+
+                <Deck className={'deck'}>
                   {deck.length > 0 ? <img src="./image/drawful.jpg" style={{ width: '100%', height: 'auto', borderRadius: '10px' }} /> : null}
+                        {deck.length > 0 ?
+                        <Button variant='outlined' size='sm' id="draw-btn" onClick={handleDraw} disabled={deck.length <= 0}>
+                          Draw
+                        </Button>
+                        : null}
                 </Deck>
 
                 <Center id='center' onMouseEnter={() => { setCenter(true) }} onMouseLeave={() => { setCenter(false) }}>
-                  <Carousels cards={centerSpot} player={false} />
+                       <Carousels cards={centerSpot} player={false}>
+                       </Carousels>
                 </Center>
 
               </Cards>
-              <Button variant='outlined' size='large' id="draw-btn" onClick={handleDraw} disabled={deck.length <= 0}>
+
+              {/* <Button variant='outlined' size='sm' id="draw-btn" onClick={handleDraw} disabled={deck.length <= 0}>
                 Draw
-              </Button>
+              </Button> */}
             </Innerboard>
 
             <Right id={'right'} onMouseEnter={() => { setRight(true) }} onMouseLeave={() => { setRight(false) }}>
@@ -204,7 +260,7 @@ export default function GameBoard() {
           </Board>
 
           <Hand>
-            <CardHand cards={playerDeck} height={100} handleChange={handleChange} player={userName} players={playerOrder} />
+            <CardHand cards={playerDeck} height={500} /*  style={{'width': '10', 'position': 'initial'}} */ handleChange={handleChange} player={userName} players={playerOrder} />
           </Hand>
         </Container>
       </Typography>

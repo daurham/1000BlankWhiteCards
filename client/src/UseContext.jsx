@@ -2,6 +2,29 @@ import React, { useContext, useState, useMemo, useEffect } from 'react';
 import App from './components/App.jsx';
 import io from 'socket.io-client';
 import useLocalStorageState from 'use-local-storage-state';
+// import { ThemeProvider } from '@mui/styles';
+import { createTheme, ThemeProvider } from '@mui/material';
+import { fontFamily } from '@mui/system';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'cursive',
+    margin: '0% 0% 0% 0%',
+    fontWeight: 900,
+  }
+});
+
+theme.typography.h1 = {
+  fontSize: '5vw',
+  fontFamily: 'cursive',
+  fontWeight: 900,
+  margin: '0% 0% 0% 0%'
+};
+theme.typography.h2 = {
+  fontSize: '4vw',
+  fontFamily: 'cursive',
+  margin: '0% 0% 0% 0%'
+};
 
 const socket = io('http://localhost:8080');
 
@@ -50,7 +73,9 @@ export default function Context() {
 
   return !cards || !players ? null : (
     <DataContext.Provider value={value}>
-      <App />
+      <ThemeProvider theme={theme}>
+        <App />
+      </ThemeProvider>
     </DataContext.Provider>
   );
 }

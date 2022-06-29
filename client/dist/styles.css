@@ -1,152 +1,295 @@
-*{
+* {
   margin: 0;
   padding: 0;
-
+  font-family: cursive;
 }
 
-body{
-  background: url('./image/background.jpeg') no-repeat center center fixed;
-  background-size: cover;
+html {
+  height: 0;
 }
 
-#home{
+
+body {
+  /* opacity: 50%; */
+  height: 0;
+  background: url('./image/background.jpeg') rgba(0, 0, 0, 0.9);
+  /* background-size: cover; */
+  background-color: rgba(0, 0, 0, 0.5);
+  /* background-image: none; */
+}
+
+#bg {
+  background: url('./image/background.jpeg');
+}
+
+#home {
   margin-top: 10%;
+  /* display: flex; */
 }
 
-#library{
-  margin-top: 10%;
+#library {
+  /* margin-top: 10%; */
+  font-weight: 900;
 }
 
-#lobby{
-  margin-top: 10%;
+#lobby {
+  /* margin-top: 10%; */
+  font-weight: 900;
 }
 
-#mainTitle{
+#mainTitle {
   display: flex;
   justify-content: center;
   color: white;
-  text-shadow: 0 0 4px black, 0 0 4px black;
-  font-weight: 500;
-  margin: 5%;
+  text-shadow: 1px 1px 3px black, 3px 1px 10px black;
+  font-weight: 900;
+  /* margin: 5%; */
+  font-family: cursive;
 }
 
-.home-btns{
+/* .home-btns{
+  margin: 12%;
+  background-color: skyblue;
+  margin: 1% 35% 10% 35%;
+  padding: 1px 0px 1px 0px;
+} */
+
+.home-btns {
+  margin: 12%;
+  background-color: rgba(200, 400, 900, 0.8);
+  background: rgb(107, 211, 232);
+  background: radial-gradient(circle, rgb(69 0 0 / 37%) 0%, rgba(255, 255, 255, 1) 49%);
+  margin: 1% 33% 10% 33%;
+  padding: 1px 0px 1px 0px;
+  border-radius: 25px;
+  border: solid 5px;
+}
+
+
+.home-btns-b {
   margin: 12%;
 }
 
-.form{
+.home-btns-bg {
+  /* background-color: darkblue; */
+  /* width:; */
+}
+
+.form {
   display: flex;
   justify-content: center;
   margin-bottom: 35px;
 }
 
-.link{
+.link {
   display: flex;
   justify-content: center;
   margin: 20px;
 }
 
-.gamebtn{
+.gamebtn {
   display: flex;
   justify-content: center;
   margin: 20px;
 }
 
-#outlined-required{
+#outlined-required {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
 }
 
-#btn1{
+/* #btn1{
   background-color: rgba(2, 136, 209, 0.2);
   color: #01579b;
   margin-left: 15px;
+} */
+#btn1 {
+  background-color: rgb(93 51 0 / 57%);
+  color: #fcfeff;
+  margin-left: 15px;
+  animation: wiggle 5s linear infinite;
+}
+/* Keyframes */
+@keyframes wiggle {
+  100%, 50% {
+    transform: rotateZ(0);
+  }
+  50% {
+    transform: rotateZ(-5deg);
+  }
+  50% {
+    transform: rotateZ(5deg);
+  }
+  50% {
+    transform: rotateZ(-5deg);
+  }
+  50% {
+    transform: rotateZ(5deg);
+  }
+  100%, 100% {
+    transform: rotateZ(0);
+  }
+}
+/* Keyframes */
+@keyframes jiggle {
+  100%, 50% {
+    transform: scaleY(.3);
+  }
+  100% {
+    transform: rotateZ(0);
+  }
+  50% {
+    transform: rotateZ(-5deg);
+  }
+  100% {
+    transform: rotateZ(5deg);
+  }
+  50% {
+    transform: rotateZ(-5deg);
+  }
+  100%, 100% {
+    transform: scaleY(1);
+  }
+}
+/* Keyframes */
+@keyframes ziggle {
+  100%, 50% {
+    transform: scaleY(.9);
+  }
+  100% {
+    transform: scaleY(5deg);
+  }
+  50% {
+    transform: scaleY(-5deg);
+  }
+  100% {
+    transform: scaleY(5deg);
+  }
+  50% {
+    transform: scaleY(-5deg);
+  }
+  100%, 100% {
+    transform: scaleY(1);
+  }
 }
 
-#btn2{
+#btn2 {
+  background-color: rgb(0 84 131 / 72%);
+  /* background-color: rgba(2, 136, 209, 0.53); */
+  color: #ffffff;
+  animation: jiggle 5s cubic-bezier(0.95, 0.05, 0.795, 0.035) infinite;
+}
+
+/* #btn3{
   background-color: rgba(2, 136, 209, 0.2);
   color: #01579b;
+} */
+#btn3 {
+  background-color: rgb(0 84 131 / 72%);
+  /* background-color: rgba(2, 136, 209, 0.53); */
+  color: #ffffff;
+  animation: wiggle 8s alternate-reverse cubic-bezier(0.95, 0.05, 0.795, 0.035) infinite;
 }
 
-#btn3{
+/* #btn4{
   background-color: rgba(2, 136, 209, 0.2);
   color: #01579b;
+} */
+#btn4 {
+  background-color: rgba(2, 136, 209, 0.53);
+  /* background-color: rgb(0 84 131 / 72%); */
+  color: #ffffff;
+  animation: ziggle 2s linear infinite;
 }
 
-#btn4{
-  background-color: rgba(2, 136, 209, 0.2);
-  color: #01579b;
-}
-
-#lobby-title{
+#lobby-title {
   display: flex;
   justify-content: center;
   color: white;
+
   text-shadow: 0 0 4px black, 0 0 4px black;
-  font-weight: 500;
-  margin: 5% 5% 1% 5%;
+  /* font-weight: 900; */
+  /* margin: -5% 5% 1% 5%; */
+  font-family: cursive;
+  font-size: 6vw;
 }
 
-.lobby-players{
+.lobby-players {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 30px;
+  font-family: cursive;
 }
 
-#lobby-players-title{
+#lobby-players-title {
   color: white;
   text-shadow: 0 0 3px black, 0 0 3px black;
   font-weight: 400;
   margin-top: 10px;
   margin-bottom: 5px;
+  font-family: cursive;
 }
 
-#lobby-player-name{
+#lobby-player-name {
   color: white;
-  text-shadow: 0 0 2px black, 0 0 2px black;
+  text-shadow: 0 0 5px black, 0 0 5px black;
   font-size: 22px;
   font-weight: 400;
   margin: 2px;
+  font-family: cursive;
 }
 
-.lobby-add-btn, .lobby-edit, .lobby-start, .lobby-exit{
+.lobby-add-btn,
+.lobby-edit,
+.lobby-start,
+.lobby-exit {
   display: flex;
   justify-content: center;
   margin-bottom: 10px;
 }
 
-#add-btn, #edit-btn, #start-btn, #exit-btn{
-  background-color: rgba(2, 136, 209, 0.2);
-  color: #01579b;
+#add-btn,
+#edit-btn,
+#start-btn,
+#exit-btn {
+  /* background-color: rgba(2, 136, 209, 0.5);
+  color: #01579b; */
+  background-color: rgb(0 84 131 / 72%);
+  color: #fdfdfd;
+}
+#start-btn{
+  animation: ziggle 2s linear infinite;
 }
 
-#libraryitle{
+#libraryitle {
   display: flex;
   justify-content: center;
   color: white;
   text-shadow: 0 0 4px black, 0 0 4px black;
-  font-weight: 500;
-  margin: 5% 5% 1% 5%;
+  /* font-weight: 500; */
+  /* margin: 5% 5% 1% 5%; */
 }
 
-.library{
+.library {
   display: flex;
   justify-content: center;
   margin: 20px;
 }
 
-#cardsort{
+#cardsort {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
 }
 
-#lib-btn1{
-  background-color: rgba(2, 136, 209, 0.2);
-  color: #01579b;
+#lib-btn1 {
+  /* background-color: rgba(2, 136, 209, 0.2);
+  color: #01579b; */
+  background-color: rgb(0 84 131 / 72%);
+  color: #fdfdfd;
 }
 
-#edit-deck-box{
+#edit-deck-box {
   position: absolute;
   top: 20%;
   left: 50%;
@@ -161,64 +304,66 @@ body{
   background-color: white;
 }
 
-#lib-and-deck-container{
+#lib-and-deck-container {
   display: flex;
   flex-direction: column;
 }
 
-#lib-and-deck{
+#lib-and-deck {
   display: flex;
   flex-direction: row;
 }
 
-#boardTitle{
+#boardTitle {
   display: flex;
   justify-content: center;
   color: white;
   text-shadow: 0 0 4px black, 0 0 4px black;
-  font-weight: 500;
+  /* font-weight: 500; */
   margin: 5% 5% 1% 5%;
 }
 
-#usertracker{
+#usertracker {
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 5px;
 }
 
-#rulebtn{
+#rulebtn {
   background-color: rgba(2, 136, 209, 0.2);
   color: #01579b;
 }
 
-#ingamebtns{
+#ingamebtns {
   display: flex;
   justify-content: center;
   margin: 20px;
 }
-#edit-btn{
+
+#edit-btn {
   margin-top: 0;
 }
 
-#draw-btn{
+#draw-btn {
+  margin-top: 10%;
   background-color: rgba(255, 255, 255, 0.5);
   color: rgba(101, 103, 109, 1);
 }
 
-.carousel-img{
+.carousel-img {
   width: 70px;
 }
 
-#move-btn{
+#move-btn {
   background-color: rgba(2, 136, 209, 0.2);
   color: #01579b;
 }
 
-#hand-btns{
+#hand-btns {
   margin: 10px;
 }
 
-#carousel-img{
-  width: 50%!important;
+#carousel-img {
+  width: 50% !important;
 }
 
 /* .active .carousel-item{
@@ -227,6 +372,6 @@ body{
   align-items: center;
 } */
 
-.carousel-caption{
+.carousel-caption {
   padding: 0;
 }
