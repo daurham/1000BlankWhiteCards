@@ -108,7 +108,7 @@ export default function BasicModal() {
     <div id='lobby'>
       <Typography variant='h1' id="lobby-title">LOBBY</Typography>
       <div className="lobby-players">
-        <Typography variant='h2' id="lobby-players-title">PLAYERS</Typography>
+        <Typography variant='h2' id="lobby-players-title">PLAYERS 1-4:</Typography>
         {players.map((player, index) => (
           <Typography variant="subtitle1" key={index} id="lobby-player-name">{player.name.toUpperCase()}</Typography>
         ))}

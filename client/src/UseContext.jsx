@@ -21,7 +21,11 @@ theme.typography.h1 = {
   margin: '0% 0% 0% 0%'
 };
 theme.typography.h2 = {
-  fontSize: '4vw',
+  fontSize: '3vw',
+  fontFamily: 'cursive',
+  margin: '0% 0% 0% 0%'
+};
+theme.typography.h5 = {
   fontFamily: 'cursive',
   margin: '0% 0% 0% 0%'
 };
