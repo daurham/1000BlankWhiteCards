@@ -9,6 +9,10 @@
 - Requires 4 players.
 - Simulates the real game.
 
+![](https://media.giphy.com/media/H5O2QKAzgBx5GTeOCH/giphy.gif)
+![](https://media.giphy.com/media/rGGx1RjGPbctnNRQJW/giphy.gif)
+
+
 ### How to use:
 - To use this application, first fork and clone this repo (the client) and our [microservices](https://github.com/blueocean-pikachus/1000BlankWhiteCardsMicroservice) repo (the server).
 - In both repos, type "npm install".
@@ -29,6 +33,7 @@
 - If the lobby is selected the user will enter the lobby which will update live as other users join the lobby until a the lobby is full (4 players)
 
 ![Alt Text](https://media.giphy.com/media/9TEJp6nVpkswegZqdr/giphy.gif)
+![](https://media.giphy.com/media/6AtLOnLG8z0fsjduL3/giphy.gif)
 
 #### Creating a Card
 - If a user selects the "Add a Card" button, a modal will pop up
@@ -41,12 +46,14 @@
   - Input tags to cards, inorder to search in the library
 
 ![Alt Text](https://media.giphy.com/media/sVBIYazRPqE3B3Pcyx/giphy.gif)
+![](https://media.giphy.com/media/QsSaIvKA3qwgAK80qU/giphy.gif)
 
 #### Editing the Game Deck
 - Once All the desired cards have been created, users will be able to select which cards they want in the game deck
 - Options include any newly created cards, as well as cards that are saved in the library from previous games.
 
 ![Alt Text](https://media.giphy.com/media/NmvyrOVEYMBC9bVNzS/giphy.gif)
+![](https://media.giphy.com/media/VmihZT5dlU8RnCeOeF/giphy.gif)
 
 #### In Game User View
 - Upon entering the game, the board pops up with a deck in the center and a "Draw" button that is active as long as there are cards in the deck.
@@ -54,6 +61,7 @@
 - The user will be able to click on a card in their hand and drag it to any other players section of the board to place it infront of that player.
 
 ![Alt Text](https://media.giphy.com/media/Hw8SPDP0dTT2jZsECa/giphy.gif)
+![](https://media.giphy.com/media/jWQpVyjgIpgz43ww93/giphy.gif)
 
 #### Contact the Team: 
 - [Team](http://google.com)
