@@ -4,7 +4,6 @@ import React, { useContext, useState, useEffect } from 'react';
 
 const MyComponent = (props) => {
 
-  // define a set of cards
   const cards = props.cards.map((card) => ({ id: card.id, imgSrc: card.image }));
 
   const top = document.getElementById('top');
@@ -13,7 +12,6 @@ const MyComponent = (props) => {
   const right = document.getElementById('right');
   const center = document.getElementById('center');
 
-  // add a function to each card that fires onClick
   for (let card of cards) {
 
     card.handleClick = ({ id, position }) => {
@@ -62,13 +60,13 @@ const MyComponent = (props) => {
           props.handleChange(card, 'center')
         }
       }
-    }
+    };
   }
 
   // Height represents the distance from a point. Consider it like "margin-top: val"
   return (
-    <Hand height={325} /*width={100} style={{'width': 10, 'position': 'initial'}}*/ cards={cards} />
-  )
-}
+    <Hand height={325} cards={cards} />
+  );
+};
 
-export default MyComponent
+export default MyComponent;

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from "styled-components";
 import { Popover, Typography, Button } from '@mui/material';
 
 export default function Rule() {
@@ -38,7 +37,7 @@ export default function Rule() {
           <br />
           <br />
           Play continues until there are no cards left in the central deck and no one can play (if they have no cards that can be played in the current situation). The "winner" is the player with the highest score of total points at the end of the game, though in some games points don't actually matter.
-          </Typography>
+        </Typography>
       </Popover>
     </div>
   );

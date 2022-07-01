@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from "styled-components";
 import { Stack, Typography } from '@mui/material/';
 import { useData } from '../../UseContext';
 import Rule from './Rule.jsx'

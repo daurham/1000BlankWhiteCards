@@ -13,7 +13,6 @@ export default function MediaCard({ card }) {
         border: 'solid',
         borderRadius: 3,
         objectFit: 'scale-down',
-        /*  height: 'fit-content' */
       }}
     >
       <CardMedia
@@ -21,10 +20,7 @@ export default function MediaCard({ card }) {
         image={card.image}
         sx={{
           height: "fit-content",
-          // width: "100",
           objectFit: "scale-down",
-          // borderRadius: "20",
-          // maxHeight: "1",
         }}
         alt="image of card"
       />
@@ -33,15 +29,6 @@ export default function MediaCard({ card }) {
           maxHeight: "130px",
           overflowY: "auto",
         }}
-      // className="cactus"
-      // class-name="cactus"
-      // object-fit="scale-down"
-      // border-radius="20"
-      // height="fit-content"
-      // maxHeight="1px"
-      // // width="100"
-      // maxWidth="1px"
-
       >
         <Typography gutterBottom variant="h5" component={"p"}>
           {card.points > 0 ? `+${card.points}` : `${card.points}`}

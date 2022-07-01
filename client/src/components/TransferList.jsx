@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Grid, ImageList, ImageListItem, ImageListItemBar, ListSubheader, IconButton, Button, Paper, Stack
+  Grid,
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  ListSubheader,
+  IconButton,
+  Button,
+  Paper,
+  Stack
 } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 
 function not(a, b) {
   return a.filter((value) => b.indexOf(value) === -1);
-}
+};
 
 function intersection(a, b) {
   return a.filter((value) => b.indexOf(value) !== -1);
@@ -22,6 +30,7 @@ export default function TransferList({ cards, socket }) {
   const border = { border: 'solid 1px' };
   const [allInDeck, setAllInDeck] = useState(false);
   const [toggle, setToggle] = useState('deck');
+
   const moveAll = () => {
     if (toggle === 'deck') {
       library.forEach((card) => moveCard(card.id, 'deck'));
@@ -31,7 +40,9 @@ export default function TransferList({ cards, socket }) {
       setToggle(() => 'deck');
     }
   };
-  useEffect(() => { }, [toggle])
+
+  useEffect(() => { }, [toggle]);
+
   return (
     <Stack spacing={5} direction='column' id="lib-and-deck-container">
       <Stack spacing={1} direction='row' id="lib-and-deck">
@@ -89,4 +100,4 @@ export default function TransferList({ cards, socket }) {
       <Button id="edit-btn" variant="outlined" onClick={moveAll}>Moval All</Button>
     </Stack>
   );
-}
+};

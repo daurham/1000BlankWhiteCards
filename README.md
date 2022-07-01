@@ -4,13 +4,12 @@
 
 
 ## About The Project
-- This application is intended for lovers of the game 1000 Blank White Cards. 
+- This application is intended for lovers of the game 1000 Blank White Cards.
 - Rules on how to play are inside.
 - Requires 4 players.
 - Simulates the real game.
 
 ![](https://media.giphy.com/media/H5O2QKAzgBx5GTeOCH/giphy.gif)
-![](https://media.giphy.com/media/rGGx1RjGPbctnNRQJW/giphy.gif)
 
 
 ### How to use:
@@ -23,16 +22,15 @@
 - Have fun with 4 friends locally.
 - (Optional: Deploy to play with friends online.)
 
-### Server: 
+### Server:
 - Follow this [ReadMe](https://github.com/blueocean-pikachus/1000BlankWhiteCardsMicroservice#readme).
 
 ### Navigating The App:
 
 #### Loading the Lobby
-- The home page allows the users to input their username and then select between the lobby or the library. 
+- The home page allows the users to input their username and then select between the lobby or the library.
 - If the lobby is selected the user will enter the lobby which will update live as other users join the lobby until a the lobby is full (4 players)
 
-![Alt Text](https://media.giphy.com/media/9TEJp6nVpkswegZqdr/giphy.gif)
 ![](https://media.giphy.com/media/6AtLOnLG8z0fsjduL3/giphy.gif)
 
 #### Creating a Card
@@ -45,14 +43,18 @@
   - Input the rules of a card
   - Input tags to cards, inorder to search in the library
 
-![Alt Text](https://media.giphy.com/media/sVBIYazRPqE3B3Pcyx/giphy.gif)
 ![](https://media.giphy.com/media/QsSaIvKA3qwgAK80qU/giphy.gif)
+
+
+- Note: All cards created will be stored in the Card Library.
+
+![](https://media.giphy.com/media/rGGx1RjGPbctnNRQJW/giphy.gif)
+
 
 #### Editing the Game Deck
 - Once All the desired cards have been created, users will be able to select which cards they want in the game deck
 - Options include any newly created cards, as well as cards that are saved in the library from previous games.
 
-![Alt Text](https://media.giphy.com/media/NmvyrOVEYMBC9bVNzS/giphy.gif)
 ![](https://media.giphy.com/media/VmihZT5dlU8RnCeOeF/giphy.gif)
 
 #### In Game User View
@@ -60,8 +62,7 @@
 - When a user clicks on the draw button, their hand will be populated but those cards will be hidden from the rest of the users
 - The user will be able to click on a card in their hand and drag it to any other players section of the board to place it infront of that player.
 
-![Alt Text](https://media.giphy.com/media/Hw8SPDP0dTT2jZsECa/giphy.gif)
 ![](https://media.giphy.com/media/jWQpVyjgIpgz43ww93/giphy.gif)
 
-#### Contact the Team: 
-- [Team](http://google.com)
+#### Contact the Team:
+

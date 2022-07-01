@@ -222,4 +222,4 @@ export default function BasicModal() {
       </div>
     </div>
   );
-}
+};

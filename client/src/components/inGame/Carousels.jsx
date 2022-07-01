@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import { useData } from '../../UseContext';
-import MediaCard from '../Card.jsx';
 import { Modal, Box, Stack, Select, FormControl, MenuItem, Typography, Button } from '@mui/material';
+import { style } from './InGameStyles/CarouselsStyles';
 
 export default function Carousels(props) {
 
@@ -19,18 +18,6 @@ export default function Carousels(props) {
   const handleClose = () => {
     setRules('');
     setOpen(false);
-  };
-
-  const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 500,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
   };
 
   return !props.cards ? null : (
@@ -90,4 +77,4 @@ export default function Carousels(props) {
       )}
     </Carousel>
   );
-}
+};
