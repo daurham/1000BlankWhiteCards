@@ -62,7 +62,14 @@
 - When a user clicks on the draw button, their hand will be populated but those cards will be hidden from the rest of the users
 - The user will be able to click on a card in their hand and drag it to any other players section of the board to place it infront of that player.
 
+
 ![](https://media.giphy.com/media/jWQpVyjgIpgz43ww93/giphy.gif)
 
 #### Contact the Team:
-
+- [Alvina Kwon](https://github.com/minjina90)
+- [Jake Daurham](https://github.com/daurham)
+- [Jini Cha](https://github.com/jinicha)
+- [Karli Thomas](https://github.com/karli-thomas)
+- [Kevin Infante](https://github.com/Kevinfante)
+- [Trevor Leung](https://github.com/TofuStore)
+- [Waylon Marble](https://github.com/WaylonMarble)
